@@ -14,15 +14,22 @@
 
         <ion-row>
 
-            <ion-col size-xs="12" size-sm="4">
+            <ion-col *ngFor="let celebrity of celebrities$ | async" size-xs="12" size-sm="4">
 
                 <ion-card class="celebrity-card">
-                    <ion-img class="celebrity-card__image" src="https://consequenceofsound.net/wp-content/uploads/2019/05/oldest-record-store-bans-morrissey-music-spillers-politics.png?w=807">
+                    <ion-img class="celebrity-card__image" [src]="celebrity.imageUrl">
                     </ion-img>
 
                     <ion-card-header>
-                        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-                        <ion-card-title>Card Title</ion-card-title>
+                        <ion-card-subtitle class="celebrity-card__occupation">
+                            {{ celebrity.category }}
+                            >
+                            {{ celebrity.occupation }}
+                        </ion-card-subtitle>
+
+                        <ion-card-title class="celebrity-card__name">
+                            {{ celebrity.name }}
+                        </ion-card-title>
                     </ion-card-header>
                 </ion-card>
 
