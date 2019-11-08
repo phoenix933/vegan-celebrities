@@ -3,12 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CelebritiesRoutingModule } from './celebrities-routing.module';
 import { containers } from './containers';
+import { modals } from './modals';
+import { pipes } from './pipes';
+
+import { CelebritiesRoutingModule } from './celebrities-routing.module';
 
 @NgModule({
     declarations: [
-        ...containers
+        ...containers,
+        ...modals,
+        ...pipes,
+    ],
+    entryComponents: [
+        ...modals
     ],
     imports: [
         CommonModule,

@@ -14,9 +14,12 @@
 
         <ion-row>
 
-            <ion-col *ngFor="let celebrity of celebrities$ | async" size-xs="12" size-sm="4">
+            <ion-col
+                *ngFor="let celebrity of celebrities$ | async"
+                size-xs="12"
+                size-sm="4">
 
-                <ion-card class="celebrity-card">
+                <ion-card (click)="showCelebrityDetails(celebrity)"  class="celebrity-card">
                     <ion-img class="celebrity-card__image" [src]="celebrity.imageUrl">
                     </ion-img>
 

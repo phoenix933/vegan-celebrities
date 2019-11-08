@@ -1,0 +1,68 @@
+.celebrity {
+    &__header {
+        display: flex;
+        align-items: center;
+    }
+
+    &__image {
+        margin-right: 12px;
+    }
+
+    &__occupation {
+        text-transform: capitalize;
+        font-family: Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        color: #737373
+    }
+
+    &__name {
+        font-family: Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #262626;
+
+        display: flex;
+        align-items: center;
+
+        ion-icon {
+            margin-left: 6px;
+        }
+    }
+
+    &__social {
+        margin-top: 1em;
+
+        ion-icon {
+            font-size: 1.4em;
+            margin-right: 0.2em;
+
+            $facebookColor: #4267B2;
+            $twitterColor: #1DA1F2;
+            $youtubeColor: #f00;
+            $instagramColor: #C13584;
+
+            &.facebook {
+                color: $facebookColor;
+            }
+
+            &.twitter {
+                color: $twitterColor;
+            }
+
+            &.youtube {
+                color: $youtubeColor;
+            }
+
+            &.instagram {
+                color: $instagramColor;
+            }
+        }
+    }
+}
+
+ion-footer {
+    display: flex;
+    justify-content: flex-end;
+}
