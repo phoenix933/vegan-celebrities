@@ -1,7 +1,7 @@
-import { CelebrityDetailComponent } from './celebrity-detail/celebrity-detail.component';
+import { CelebrityDetailModalComponent } from './celebrity-detail-modal/celebrity-detail-modal.component';
 
 export const modals = [
-    CelebrityDetailComponent
+    CelebrityDetailModalComponent
 ];
 
-export * from './celebrity-detail/celebrity-detail.component';
+export * from './celebrity-detail-modal/celebrity-detail-modal.component';

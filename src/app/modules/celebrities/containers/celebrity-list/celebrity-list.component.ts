@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { ModalController } from '@ionic/angular';
 
-import { CelebrityDetailComponent } from './../../modals';
+import { CelebrityDetailModalComponent } from './../../modals';
 
 @Component({
     selector: 'app-celebrity-list',
@@ -29,7 +29,7 @@ export class CelebrityListComponent implements OnInit {
     async showCelebrityDetails(celebrity: any): Promise<void> {
         const modal = await this._modalController
             .create({
-                component: CelebrityDetailComponent,
+                component: CelebrityDetailModalComponent,
                 componentProps: {
                     celebrity
                 }

@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 
 @Component({
-    selector: 'app-celebrity-detail',
-    templateUrl: './celebrity-detail.component.html',
-    styleUrls: ['./celebrity-detail.component.scss'],
+    selector: 'app-celebrity-detail-modal',
+    templateUrl: './celebrity-detail-modal.component.html',
+    styleUrls: ['./celebrity-detail-modal.component.scss'],
 })
-export class CelebrityDetailComponent implements OnInit {
+export class CelebrityDetailModalComponent implements OnInit {
     celebrity: any;
 
     constructor(
