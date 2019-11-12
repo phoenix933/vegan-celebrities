@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { Observable } from 'rxjs';
-
-import { ModalController } from '@ionic/angular';
-
-import { CelebrityDetailModalComponent } from './../../modals';
+import { Observable, of } from 'rxjs';
 
 @Component({
     selector: 'app-celebrity-list',
@@ -15,26 +11,159 @@ import { CelebrityDetailModalComponent } from './../../modals';
 export class CelebrityListComponent implements OnInit {
     celebrities$: Observable<any>;
 
+    celebs = [
+        {
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },
+        {
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },{
+            name: 'Julian',
+            imageUrl: '',
+            category: 'Some',
+            occupation: 'Another',
+        },
+    ]
+
     constructor(
         private _firestore: AngularFirestore,
-        private _modalController: ModalController
     ) { }
 
     ngOnInit(): void {
         this.celebrities$ = this._firestore
             .collection('celebrities')
             .valueChanges();
-    }
-
-    async showCelebrityDetails(celebrity: any): Promise<void> {
-        const modal = await this._modalController
-            .create({
-                component: CelebrityDetailModalComponent,
-                componentProps: {
-                    celebrity
-                }
-            });
-
-        await modal.present();
+        // this.celebrities$ = of(this.celebs);
     }
 }

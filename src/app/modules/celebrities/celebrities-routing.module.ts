@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CelebrityListComponent } from './containers';
+import { CelebrityDetailComponent, CelebrityListComponent } from './containers';
 
 const routes: Routes = [
     {
@@ -12,6 +12,10 @@ const routes: Routes = [
     {
         path: 'list',
         component: CelebrityListComponent
+    },
+    {
+        path: 'view/:id',
+        component: CelebrityDetailComponent
     }
 ];
 
