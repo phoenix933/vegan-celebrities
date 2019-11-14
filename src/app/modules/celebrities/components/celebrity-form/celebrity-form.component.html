@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="celebrityForm" (submit)="saveCelebrity()">
 
     <ion-grid>
 
@@ -6,10 +6,9 @@
             <ion-col>
                 <ion-item>
                     <ion-label position="floating">
-                        Name
+                        Name *
                     </ion-label>
-                    <ion-input type="text">
-
+                    <ion-input formControlName="name" type="text" placeholder="e.g. Joaquin Phoenix">
                     </ion-input>
                 </ion-item>
             </ion-col>
@@ -19,12 +18,149 @@
             <ion-col>
                 <ion-item>
                     <ion-label position="floating">
-                        Name
+                        About *
                     </ion-label>
-                    <ion-input type="text">
+                    <ion-textarea formControlName="about" placeholder="e.g. Joaquin Rafael Phoenix is a Puerto Rican-born American actor, as well as a producer, and an activist..">
+                    </ion-textarea>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Category *
+                    </ion-label>
+                    <ion-select formControlName="category" placeholder="e.g. Entertainment">
+                        <ion-select-option value="entertainment">
+                            Entertainment
+                        </ion-select-option>
+                        <ion-select-option value="healthcare">
+                            Healthcare
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Occupation *
+                    </ion-label>
+                    <ion-input formControlName="occupation" type="text" placeholder="e.g. Actor">
 
                     </ion-input>
                 </ion-item>
+            </ion-col>
+
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Birthdate
+                    </ion-label>
+                    <ion-datetime
+                        formControlName="birthdate"
+                        display-format="DD MMM YYYY"
+                        placeholder="e.g. 28 Oct 1974">
+                    </ion-datetime>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Birthplace
+                    </ion-label>
+                    <ion-input formControlName="birthplace" type="text" placeholder="e.g. San Juan, Puerto Rico">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Height (cm)
+                    </ion-label>
+                    <ion-input formControlName="height" type="text" placeholder="e.g. 173">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Partner (name)
+                    </ion-label>
+                    <ion-input formControlName="partner" type="text" placeholder="e.g. Rooney Mara">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Image URL *
+                    </ion-label>
+                    <ion-input formControlName="imageUrl" type="text" placeholder="Start with http://..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Wiki URL
+                    </ion-label>
+                    <ion-input formControlName="wikiUrl" type="text" placeholder="Start with http://..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row formGroupName="social">
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Facebook URL
+                    </ion-label>
+                    <ion-input formControlName="facebook" type="text" placeholder="Start with http://..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Instagram URL
+                    </ion-label>
+                    <ion-input formControlName="instagram" type="text" placeholder="Start with http://..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Twitter URL
+                    </ion-label>
+                    <ion-input formControlName="twitter" type="text" placeholder="Start with http://..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        YouTube URL
+                    </ion-label>
+                    <ion-input formControlName="youtube" type="text" placeholder="Start with http://..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-end">
+            <ion-col size="auto">
+                <ion-button type="submit">
+                    Save
+                </ion-button>
             </ion-col>
         </ion-row>
 

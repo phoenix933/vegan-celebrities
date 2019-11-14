@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Add celebrity
+        </ion-title>
+
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/celebrities">
+            </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <app-celebrity-form
+        (submitted)="createCelebrity($event)">
+    </app-celebrity-form>
+
+</ion-content>
+

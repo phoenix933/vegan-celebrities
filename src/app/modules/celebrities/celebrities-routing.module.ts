@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CelebrityDetailComponent, CelebrityListComponent } from './containers';
+import { CelebrityDetailComponent, CelebrityListComponent, CreateCelebrityComponent } from './containers';
 
 const routes: Routes = [
     {
@@ -16,6 +16,10 @@ const routes: Routes = [
     {
         path: 'view/:id',
         component: CelebrityDetailComponent
+    },
+    {
+        path: 'add',
+        component: CreateCelebrityComponent
     }
 ];
 
