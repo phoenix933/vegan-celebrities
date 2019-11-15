@@ -53,29 +53,29 @@ export function reducer(state = initialState, action: fromActions.CelebritiesAct
             };
         }
 
-        // // Get Celebrity
-        // case CelebritiesActionTypes.GetCelebrity: {
-        //     return {
-        //         ...state,
-        //         getCelebrityLoading: true
-        //     };
-        // }
+        // Get Celebrity
+        case CelebritiesActionTypes.GetCelebrity: {
+            return {
+                ...state,
+                getCelebrityLoading: true
+            };
+        }
 
-        // case CelebritiesActionTypes.GetCelebritySuccess: {
-        //     const selectedCelebrity = action.payload;
-        //     return {
-        //         ...state,
-        //         selectedCelebrity,
-        //         getCelebrityLoading: false
-        //     };
-        // }
+        case CelebritiesActionTypes.GetCelebritySuccess: {
+            const selectedCelebrity = action.payload;
+            return {
+                ...state,
+                selectedCelebrity,
+                getCelebrityLoading: false
+            };
+        }
 
-        // case CelebritiesActionTypes.GetCelebrityFailure: {
-        //     return {
-        //         ...state,
-        //         getCelebrityLoading: false
-        //     };
-        // }
+        case CelebritiesActionTypes.GetCelebrityFailure: {
+            return {
+                ...state,
+                getCelebrityLoading: false
+            };
+        }
 
         // Create Celebrity
         case CelebritiesActionTypes.CreateCelebrity: {
@@ -93,20 +93,20 @@ export function reducer(state = initialState, action: fromActions.CelebritiesAct
             };
         }
 
-        // case CelebritiesActionTypes.UpdateCelebrity: {
-        //     return {
-        //         ...state,
-        //         updateCelebrityLoading: true
-        //     };
-        // }
+        case CelebritiesActionTypes.UpdateCelebrity: {
+            return {
+                ...state,
+                updateCelebrityLoading: true
+            };
+        }
 
-        // case CelebritiesActionTypes.UpdateCelebritySuccess:
-        // case CelebritiesActionTypes.UpdateCelebrityFailure: {
-        //     return {
-        //         ...state,
-        //         updateCelebrityLoading: false
-        //     };
-        // }
+        case CelebritiesActionTypes.UpdateCelebritySuccess:
+        case CelebritiesActionTypes.UpdateCelebrityFailure: {
+            return {
+                ...state,
+                updateCelebrityLoading: false
+            };
+        }
 
         // case CelebritiesActionTypes.DeleteCelebrity: {
         //     return {

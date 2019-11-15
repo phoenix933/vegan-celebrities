@@ -1,0 +1,28 @@
+<ng-container *ngIf="celebrity">
+
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>
+                Edit {{ celebrity.name }}
+            </ion-title>
+
+            <ion-buttons slot="start">
+                <ion-back-button [defaultHref]="'/celebrities/view/' + celebrity.slug">
+                </ion-back-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+
+        <app-celebrity-form
+            [celebrity]="celebrity"
+            [loading]="updateCelebrityLoading$ | async"
+            (submitted)="updateCelebrity($event)">
+        </app-celebrity-form>
+
+    </ion-content>
+
+</ng-container>
+
+

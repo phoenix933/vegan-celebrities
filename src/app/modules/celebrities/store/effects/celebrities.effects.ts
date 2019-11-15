@@ -36,21 +36,21 @@ export class CelebritiesEffects {
             })
         );
 
-    // // Get Celebrity
-    // @Effect()
-    // getCelebrity$ = this._actions$
-    //     .pipe(
-    //         ofType(CelebritiesActionTypes.GetCelebrity),
-    //         map((action: fromActions.GetCelebrity) => action.payload),
-    //         switchMap((id: number) => {
-    //             return this._celebritiesDataService
-    //                 .getCelebrity(id)
-    //                 .pipe(
-    //                     map((celebrity: Celebrity) => new fromActions.GetCelebritySuccess(celebrity)),
-    //                     catchError(() => of(new fromActions.GetCelebrityFailure()))
-    //                 );
-    //         })
-    //     );
+    // Get Celebrity
+    @Effect()
+    getCelebrity$ = this._actions$
+        .pipe(
+            ofType(CelebritiesActionTypes.GetCelebrity),
+            map((action: fromActions.GetCelebrity) => action.payload),
+            switchMap((slug: string) => {
+                return this._celebritiesDataService
+                    .getCelebrity(slug)
+                    .pipe(
+                        map((celebrity: Celebrity) => new fromActions.GetCelebritySuccess(celebrity)),
+                        catchError(() => of(new fromActions.GetCelebrityFailure()))
+                    );
+            })
+        );
 
     // Create Celebrity
     @Effect()
@@ -86,36 +86,41 @@ export class CelebritiesEffects {
             ))
         );
 
-    // // Update Celebrity
-    // @Effect()
-    // updateCelebrity$ = this._actions$
-    //     .pipe(
-    //         ofType(CelebritiesActionTypes.UpdateCelebrity),
-    //         map((action: fromActions.UpdateCelebrity) => action.payload),
-    //         switchMap(({ id, celebrity }) => {
-    //             return this._celebritiesDataService
-    //                 .updateCelebrity(id, celebrity)
-    //                 .pipe(
-    //                     mapTo(new fromActions.UpdateCelebritySuccess()),
-    //                     catchError(() => of(new fromActions.UpdateCelebrityFailure()))
-    //                 );
-    //         })
-    //     );
+    // Update Celebrity
+    @Effect()
+    updateCelebrity$ = this._actions$
+        .pipe(
+            ofType(CelebritiesActionTypes.UpdateCelebrity),
+            map((action: fromActions.UpdateCelebrity) => action.payload),
+            switchMap(({ id, celebrity }) => {
+                const { slug } = celebrity;
+                return this._celebritiesDataService
+                    .updateCelebrity(id, celebrity)
+                    .pipe(
+                        mapTo(new fromActions.UpdateCelebritySuccess(slug)),
+                        catchError((error) => of(new fromActions.UpdateCelebrityFailure()))
+                    );
+            })
+        );
 
-    // @Effect()
-    // updateCelebritySuccess$ = this._actions$
-    //     .pipe(
-    //         ofType(CelebritiesActionTypes.UpdateCelebritySuccess),
-    //         tap(() => this._snackBar.open(`Celebrity updated successfully`, 'Yay')),
-    //         mapTo(new fromRootActions.Go({ path: ['/celebrities/list'] }))
-    //     );
+    @Effect()
+    updateCelebritySuccess$ = this._actions$
+        .pipe(
+            ofType(CelebritiesActionTypes.UpdateCelebritySuccess),
+            map((action: fromActions.UpdateCelebritySuccess) => action.payload),
+            tap((slug: string) => this._toastService.showToast('Celebrity updated successfully', 'Yay')),
+            map((slug: string) => new fromRootActions.Go({ path: ['/celebrities/view', slug] }))
+        );
 
-    // @Effect({ dispatch: false })
-    // updateCelebrityFailure$ = this._createSnackBarEffect(
-    //     CelebritiesActionTypes.UpdateCelebrityFailure,
-    //     'Uh oh! Something wrong happened and we couldn\'t update this celebrity. Please, try again later!',
-    //     'Sure'
-    // );
+    @Effect({ dispatch: false })
+    updateCelebrityFailure$ = this._actions$
+        .pipe(
+            ofType(CelebritiesActionTypes.UpdateCelebrityFailure),
+            tap(() => this._toastService.showErrorToast(
+                'Uh oh! Something wrong happened and we couldn\'t update the celebrity. Please, try again later!',
+                'Sure'
+            ))
+        );
 
     // // Delete Celebrity
     // @Effect()

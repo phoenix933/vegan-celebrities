@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CelebrityDetailComponent, CelebrityListComponent, CreateCelebrityComponent } from './containers';
+import { CelebrityDetailComponent, CelebrityListComponent, CreateCelebrityComponent, EditCelebrityComponent } from './containers';
 
 const routes: Routes = [
     {
@@ -14,12 +14,16 @@ const routes: Routes = [
         component: CelebrityListComponent
     },
     {
-        path: 'view/:id',
-        component: CelebrityDetailComponent
-    },
-    {
         path: 'add',
         component: CreateCelebrityComponent
+    },
+    {
+        path: 'edit/:celebritySlug',
+        component: EditCelebrityComponent
+    },
+    {
+        path: 'view/:celebritySlug',
+        component: CelebrityDetailComponent
     }
 ];
 

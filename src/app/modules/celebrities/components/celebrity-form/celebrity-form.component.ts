@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { Celebrity } from './../../models';
@@ -8,9 +8,10 @@ import { Celebrity } from './../../models';
     templateUrl: './celebrity-form.component.html',
     styleUrls: ['./celebrity-form.component.scss'],
 })
-export class CelebrityFormComponent implements OnInit {
+export class CelebrityFormComponent implements OnChanges, OnInit {
     celebrityForm = this._formBuilder.group({
         name: ['', [Validators.required]],
+        slug: ['', [Validators.required]],
         about: ['', [Validators.required]],
         category: ['', [Validators.required]],
         occupation: ['', [Validators.required]],
@@ -28,6 +29,7 @@ export class CelebrityFormComponent implements OnInit {
         })
     });
 
+    @Input() celebrity: Celebrity;
     @Input() loading = false;
     @Output() submitted = new EventEmitter<Celebrity>();
 
@@ -35,14 +37,24 @@ export class CelebrityFormComponent implements OnInit {
         private _formBuilder: FormBuilder
     ) { }
 
-    ngOnInit() {}
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.celebrity && changes.celebrity.currentValue) {
+            const celebrity = changes.celebrity.currentValue as Celebrity;
+            const { birthdate } = celebrity;
+
+            this.celebrityForm.patchValue({ ...celebrity, birthdate: birthdate ? birthdate.toDate().toISOString() : null });
+        }
+    }
+
+    ngOnInit(): void {}
 
     saveCelebrity(): void {
         const { valid } = this.celebrityForm;
 
         if (valid) {
             const { value } = this.celebrityForm;
-            this.submitted.emit(value);
+            const { birthdate } = value;
+            this.submitted.emit({ ...value, birthdate: birthdate ? new Date(birthdate) : null });
         }
     }
 }

@@ -1,9 +1,13 @@
+import { firestore } from 'firebase';
+
 export interface Celebrity {
+    id: string;
     name: string;
     about: string;
     category: string;
     occupation: string;
-    birthdate?: Date | object;
+    slug: string;
+    birthdate?: firestore.Timestamp;
     birthplace?: string;
     height?: number;
     partner?: string;

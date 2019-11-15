@@ -9,6 +9,13 @@
                 <ion-back-button defaultHref="/celebrities">
                 </ion-back-button>
             </ion-buttons>
+
+            <ion-buttons slot="end">
+                <ion-button [routerLink]="'/celebrities/edit/' + celebrity.slug">
+                    <ion-icon name="create">
+                    </ion-icon>
+                </ion-button>
+            </ion-buttons>
         </ion-toolbar>
     </ion-header>
 
@@ -37,15 +44,17 @@
                 <ion-item-divider>
                 </ion-item-divider>
 
-                <div class="celebrity__social">
-                    <a
-                        *ngFor="let social of celebrity.social | keyvalue"
-                        [href]="social.value"
-                        target="_blank"
-                        class="social-button">
-                        <ion-icon [class]="social.key" [name]="'logo-' + social.key">
-                        </ion-icon>
-                    </a>
+                <div *ngIf="celebrity.social" class="celebrity__social">
+                    <ng-container *ngFor="let social of celebrity.social | keyvalue">
+                        <a
+                            *ngIf="social.value"
+                            [href]="social.value"
+                            target="_blank"
+                            class="social-button">
+                            <ion-icon [class]="social.key" [name]="'logo-' + social.key">
+                            </ion-icon>
+                        </a>
+                    </ng-container>
                 </div>
 
                 <p>
@@ -55,7 +64,7 @@
 
                 <div>
 
-                    <div>
+                    <div *ngIf="celebrity.birthdate || celebrity.birthplace">
                         <strong>Born: </strong>
                         <span>
                             <span *ngIf="celebrity.birthdate">{{ celebrity.birthdate.toDate() | date: 'dd MMM yyyy' }}</span>
@@ -74,7 +83,7 @@
                         </span>
                     </div>
 
-                    <div>
+                    <div *ngIf="celebrity.partner">
                         <strong>Partner: </strong>
                         <span>
                             <a target="_blank" [href]="'https://www.google.com/search?q=' + celebrity.partner">

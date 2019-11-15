@@ -4,25 +4,31 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import { CelebritiesService } from './../../services';
+import { Celebrity } from '../../models';
+
 @Component({
     selector: 'app-celebrity-detail',
     templateUrl: './celebrity-detail.component.html',
     styleUrls: ['./celebrity-detail.component.scss'],
 })
 export class CelebrityDetailComponent implements OnInit {
-    celebrity$: Observable<any>;
+    celebrity$: Observable<Celebrity>;
 
     constructor(
         private _route: ActivatedRoute,
-        private _firestore: AngularFirestore,
+        private _celebritiesService: CelebritiesService
     ) {
     }
 
     ngOnInit(): void {
+        this.celebrity$ = this._celebritiesService.selectedCelebrity$;
+
         this._route.paramMap
             .subscribe(paramMap => {
-                const id = paramMap.get('id');
-                this.celebrity$ = this._firestore.doc(`celebrities/${id}`).valueChanges();
+                const slug = paramMap.get('celebritySlug');
+                // this.celebrity$ = this._firestore.doc(`celebrities/${id}`).valueChanges();
+                this._celebritiesService.getCelebrity(slug);
             });
     }
 }
