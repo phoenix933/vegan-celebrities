@@ -20,6 +20,10 @@ export class CelebritiesService {
         this._store.dispatch(new fromCelebrities.GetCelebrities());
     }
 
+    createCelebrity(celebrity: Celebrity): void {
+        this._store.dispatch(new fromCelebrities.CreateCelebrity(celebrity));
+    }
+
     // Selectors
     get celebrities$(): Observable<Celebrity[]> {
         return this._store.pipe(select(fromCelebrities.getCelebrities));
@@ -27,5 +31,9 @@ export class CelebritiesService {
 
     get getCelebritiesLoading$(): Observable<boolean> {
         return this._store.pipe(select(fromCelebrities.getGetCelebritiesLoading));
+    }
+
+    get createCelebrityLoading$(): Observable<boolean> {
+        return this._store.pipe(select(fromCelebrities.getCreateCelebrityLoading));
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { Celebrity } from './../../models';
@@ -28,6 +28,7 @@ export class CelebrityFormComponent implements OnInit {
         })
     });
 
+    @Input() loading = false;
     @Output() submitted = new EventEmitter<Celebrity>();
 
     constructor(

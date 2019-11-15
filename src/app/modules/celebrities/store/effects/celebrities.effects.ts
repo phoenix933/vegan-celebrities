@@ -5,7 +5,8 @@ import { switchMap, map, catchError, mapTo, tap, pluck} from 'rxjs/operators';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import * as fromRootActions from '../../../../store/actions';
+import * as fromRootActions from './../../../../store/actions';
+import { ToastService } from './../../../../services';
 import { CelebritiesDataService } from '../../services/celebrities-data/celebrities-data.service';
 import { Celebrity } from '../../models';
 
@@ -17,6 +18,7 @@ export class CelebritiesEffects {
     constructor(
         private _actions$: Actions,
         private _celebritiesDataService: CelebritiesDataService,
+        private _toastService: ToastService
     ) {}
 
     // Get Celebrities
@@ -66,20 +68,23 @@ export class CelebritiesEffects {
             })
         );
 
-    // @Effect()
-    // createCelebritySuccess$ = this._actions$
-    //     .pipe(
-    //         ofType(CelebritiesActionTypes.CreateCelebritySuccess),
-    //         tap(() => this._snackBar.open(`Celebrity created successfully`, 'Yay')),
-    //         mapTo(new fromRootActions.Go({ path: ['/celebrities/list'] }))
-    //     );
+    @Effect()
+    createCelebritySuccess$ = this._actions$
+        .pipe(
+            ofType(CelebritiesActionTypes.CreateCelebritySuccess),
+            tap(() => this._toastService.showToast('Celebrity created successfully', 'Yay')),
+            mapTo(new fromRootActions.Go({ path: ['/celebrities/list'] }))
+        );
 
-    // @Effect({ dispatch: false })
-    // createCelebrityFailure$ = this._createSnackBarEffect(
-    //     CelebritiesActionTypes.CreateCelebrityFailure,
-    //     'Uh oh! Something wrong happened and we couldn\'t create the celebrity. Please, try again later!',
-    //     'Sure'
-    // );
+    @Effect({ dispatch: false })
+    createCelebrityFailure$ = this._actions$
+        .pipe(
+            ofType(CelebritiesActionTypes.CreateCelebrityFailure),
+            tap(() => this._toastService.showErrorToast(
+                'Uh oh! Something wrong happened and we couldn\'t create the celebrity. Please, try again later!',
+                'Sure'
+            ))
+        );
 
     // // Update Celebrity
     // @Effect()

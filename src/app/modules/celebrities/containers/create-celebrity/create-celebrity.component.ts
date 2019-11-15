@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 
+import { Observable } from 'rxjs';
+
+import { CelebritiesService } from './../../services';
 import { Celebrity } from './../../models';
 
 @Component({
@@ -9,15 +11,17 @@ import { Celebrity } from './../../models';
     styleUrls: ['./create-celebrity.component.scss'],
 })
 export class CreateCelebrityComponent implements OnInit {
+    createCelebrityLoading$: Observable<boolean>;
+
     constructor(
-        private _firestore: AngularFirestore
+        private _celebritiesService: CelebritiesService
     ) { }
 
-    ngOnInit() {}
+    ngOnInit(): void {
+        this.createCelebrityLoading$ = this._celebritiesService.createCelebrityLoading$;
+    }
 
-    async createCelebrity(celebrity: Celebrity): Promise<void> {
-        console.log(celebrity);
-        await this._firestore.collection('celebrities').add(celebrity);
-        console.log('yay')
+    createCelebrity(celebrity: Celebrity): void {
+        this._celebritiesService.createCelebrity(celebrity);
     }
 }
