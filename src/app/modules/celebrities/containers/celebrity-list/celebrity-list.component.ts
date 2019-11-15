@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
+
+import { CelebritiesService } from './../../services';
 
 @Component({
     selector: 'app-celebrity-list',
@@ -11,159 +12,12 @@ import { Observable, of } from 'rxjs';
 export class CelebrityListComponent implements OnInit {
     celebrities$: Observable<any>;
 
-    celebs = [
-        {
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },
-        {
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },{
-            name: 'Julian',
-            imageUrl: '',
-            category: 'Some',
-            occupation: 'Another',
-        },
-    ]
-
     constructor(
-        private _firestore: AngularFirestore,
+        private _celebritiesService: CelebritiesService
     ) { }
 
     ngOnInit(): void {
-        this.celebrities$ = this._firestore
-            .collection('celebrities')
-            .valueChanges();
-        // this.celebrities$ = of(this.celebs);
+        this._celebritiesService.getCelebrities();
+        this.celebrities$ = this._celebritiesService.celebrities$;
     }
 }
