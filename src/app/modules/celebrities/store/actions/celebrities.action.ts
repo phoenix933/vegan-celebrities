@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Celebrity } from '../../models';
+import { CelebrityListFilter, Celebrity } from '../../models';
 
 export enum CelebritiesActionTypes {
     GetCelebrities = '[Celebrities] Get Celebrities',
@@ -26,6 +26,7 @@ export enum CelebritiesActionTypes {
 
 export class GetCelebrities implements Action {
     readonly type = CelebritiesActionTypes.GetCelebrities;
+    constructor(public payload: CelebrityListFilter) {}
 }
 
 export class GetCelebritiesSuccess implements Action {

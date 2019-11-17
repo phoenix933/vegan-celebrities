@@ -6,7 +6,7 @@ import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from './../../../../../environments/environment';
-import { Celebrity } from '../../models';
+import { Celebrity, CelebrityListFilter } from '../../models';
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +19,11 @@ export class CelebritiesDataService {
         private _http: HttpClient
     ) {}
 
-    getCelebrities(): Observable<{ celebrities: Celebrity[], count: number }> {
-        return this._http.get<{ celebrities: Celebrity[], count: number }>(this._celebritiesUrl);
+    getCelebrities(listFilter: CelebrityListFilter = {}): Observable<{ celebrities: Celebrity[], count: number }> {
+        const params = Object.keys(listFilter)
+            .reduce((res, key) => listFilter[key] ? { ...res, [key]: `${listFilter[key]}` } : res, {});
+
+        return this._http.get<{ celebrities: Celebrity[], count: number }>(this._celebritiesUrl, { params });
     }
 
     getCelebrity(slug: string): Observable<Celebrity> {

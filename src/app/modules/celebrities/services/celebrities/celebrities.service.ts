@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import * as fromCelebrities from '../../store';
-import { Celebrity } from '../../models';
+import { Celebrity, CelebrityListFilter } from '../../models';
 
 @Injectable({
     providedIn: 'root'
@@ -16,8 +16,8 @@ export class CelebritiesService {
     ) {}
 
     // Actions
-    getCelebrities(): void {
-        this._store.dispatch(new fromCelebrities.GetCelebrities());
+    getCelebrities(listFilter?: CelebrityListFilter): void {
+        this._store.dispatch(new fromCelebrities.GetCelebrities(listFilter));
     }
 
     getCelebrity(slug: string): void {

@@ -1,0 +1,22 @@
+<form [formGroup]="filterForm" (submit)="changeFilter()">
+    <ion-grid>
+        <ion-row class="ion-justify-content-between">
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating">
+                        Search
+                    </ion-label>
+                    <ion-input formControlName="search" type="text" placeholder="Type name, occupation, partner or just anything..">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size-xs="12" size-md="auto" class="ion-align-self-end">
+                <ion-button type="submit">
+                    Search
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</form>
+

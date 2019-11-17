@@ -8,7 +8,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as fromRootActions from './../../../../store/actions';
 import { ToastService } from './../../../../services';
 import { CelebritiesDataService } from '../../services/celebrities-data/celebrities-data.service';
-import { Celebrity } from '../../models';
+import { Celebrity, CelebrityListFilter } from '../../models';
 
 import * as fromActions from '../actions';
 import { CelebritiesActionTypes } from '../actions';
@@ -26,9 +26,10 @@ export class CelebritiesEffects {
     getCelebrities$ = this._actions$
         .pipe(
             ofType(CelebritiesActionTypes.GetCelebrities),
-            switchMap(() => {
+            map((action: fromActions.GetCelebrities) => action.payload),
+            switchMap((listFilter: CelebrityListFilter) => {
                 return this._celebritiesDataService
-                    .getCelebrities()
+                    .getCelebrities(listFilter)
                     .pipe(
                         map(({ celebrities, count }) => new fromActions.GetCelebritiesSuccess({ celebrities, count })),
                         catchError(() => of(new fromActions.GetCelebritiesFailure()))
