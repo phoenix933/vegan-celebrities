@@ -30,7 +30,7 @@ export class CelebritiesEffects {
                 return this._celebritiesDataService
                     .getCelebrities()
                     .pipe(
-                        map(({celebrities}) => new fromActions.GetCelebritiesSuccess(celebrities)),
+                        map(({ celebrities, count }) => new fromActions.GetCelebritiesSuccess({ celebrities, count })),
                         catchError(() => of(new fromActions.GetCelebritiesFailure()))
                     );
             })
@@ -92,12 +92,11 @@ export class CelebritiesEffects {
         .pipe(
             ofType(CelebritiesActionTypes.UpdateCelebrity),
             map((action: fromActions.UpdateCelebrity) => action.payload),
-            switchMap(({ id, celebrity }) => {
-                const { slug } = celebrity;
+            switchMap(({ slug, celebrity }) => {
                 return this._celebritiesDataService
-                    .updateCelebrity(id, celebrity)
+                    .updateCelebrity(slug, celebrity)
                     .pipe(
-                        mapTo(new fromActions.UpdateCelebritySuccess(slug)),
+                        map(({ slug }) => new fromActions.UpdateCelebritySuccess(slug)),
                         catchError((error) => of(new fromActions.UpdateCelebrityFailure()))
                     );
             })

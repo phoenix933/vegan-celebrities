@@ -28,13 +28,17 @@ export class CelebritiesService {
         this._store.dispatch(new fromCelebrities.CreateCelebrity(celebrity));
     }
 
-    updateCelebrity(id: string, celebrity: Celebrity): void {
-        this._store.dispatch(new fromCelebrities.UpdateCelebrity({ id, celebrity }));
+    updateCelebrity(slug: string, celebrity: Celebrity): void {
+        this._store.dispatch(new fromCelebrities.UpdateCelebrity({ slug, celebrity }));
     }
 
     // Selectors
     get celebrities$(): Observable<Celebrity[]> {
         return this._store.pipe(select(fromCelebrities.getCelebrities));
+    }
+
+    get count$(): Observable<number> {
+        return this._store.pipe(select(fromCelebrities.getCelebritiesCount));
     }
 
     get selectedCelebrity$(): Observable<Celebrity> {

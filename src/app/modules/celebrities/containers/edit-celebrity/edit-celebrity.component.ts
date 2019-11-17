@@ -13,8 +13,10 @@ import { filter, take } from 'rxjs/operators';
     styleUrls: ['./edit-celebrity.component.scss'],
 })
 export class EditCelebrityComponent implements OnInit {
-    celebrity: Celebrity;
+    celebrity$: Observable<Celebrity>;
     updateCelebrityLoading$: Observable<boolean>;
+
+    private _slug: string;
 
     constructor(
         private _route: ActivatedRoute,
@@ -22,24 +24,17 @@ export class EditCelebrityComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.celebrity$ = this._celebritiesService.selectedCelebrity$;
         this.updateCelebrityLoading$ = this._celebritiesService.updateCelebrityLoading$;
-
-        this._celebritiesService
-            .selectedCelebrity$
-            .pipe(
-                filter(celebrity => !!celebrity),
-                take(1)
-            )
-            .subscribe((celebrity: Celebrity) => this.celebrity = celebrity);
 
         this._route.paramMap
             .subscribe(paramMap => {
-                const slug = paramMap.get('celebritySlug');
-                this._celebritiesService.getCelebrity(slug);
+                this._slug = paramMap.get('celebritySlug');
+                this._celebritiesService.getCelebrity(this._slug);
             });
     }
 
     updateCelebrity(celebrity: Celebrity): void {
-        this._celebritiesService.updateCelebrity(this.celebrity.id, celebrity);
+        this._celebritiesService.updateCelebrity(this._slug, celebrity);
     }
 }

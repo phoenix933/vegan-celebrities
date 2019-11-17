@@ -1,4 +1,4 @@
-<ng-container *ngIf="celebrity">
+<ng-container *ngIf="celebrity$ | async as celebrity">
 
     <ion-header>
         <ion-toolbar>
@@ -7,7 +7,7 @@
             </ion-title>
 
             <ion-buttons slot="start">
-                <ion-back-button [defaultHref]="'/celebrities/view/' + celebrity.slug">
+                <ion-back-button defaultHref="/celebrities/list">
                 </ion-back-button>
             </ion-buttons>
         </ion-toolbar>

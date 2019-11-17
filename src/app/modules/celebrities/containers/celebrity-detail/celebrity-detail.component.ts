@@ -27,7 +27,6 @@ export class CelebrityDetailComponent implements OnInit {
         this._route.paramMap
             .subscribe(paramMap => {
                 const slug = paramMap.get('celebritySlug');
-                // this.celebrity$ = this._firestore.doc(`celebrities/${id}`).valueChanges();
                 this._celebritiesService.getCelebrity(slug);
             });
     }

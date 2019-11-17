@@ -170,8 +170,6 @@
 
         <ion-row class="ion-justify-content-end">
             <ion-col size="auto">
-                loading: {{ loading }}; celebrityForm.invalid: {{ celebrityForm.invalid }}
-
                 <ion-button [disabled]="celebrityForm.invalid || loading" type="submit">
                     {{ loading ? 'Saving celebrity..' : 'Save celebrity' }}
                 </ion-button>
