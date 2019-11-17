@@ -38,10 +38,10 @@ export function reducer(state = initialState, action: fromActions.CelebritiesAct
         }
 
         case CelebritiesActionTypes.GetCelebritiesSuccess: {
-            const { celebrities, count } = action.payload;
+            const { celebrities, count, append } = action.payload;
             return {
                 ...state,
-                celebrities,
+                celebrities: append ? [ ...state.celebrities, ...celebrities ] : celebrities,
                 count,
                 getCelebritiesLoading: false
             };

@@ -31,7 +31,7 @@ export class GetCelebrities implements Action {
 
 export class GetCelebritiesSuccess implements Action {
     readonly type = CelebritiesActionTypes.GetCelebritiesSuccess;
-    constructor(public payload: { celebrities: Celebrity[], count: number }) {}
+    constructor(public payload: { celebrities: Celebrity[]; count: number; append: boolean }) {}
 }
 
 export class GetCelebritiesFailure implements Action {

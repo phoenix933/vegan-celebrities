@@ -38,7 +38,7 @@
             <ion-row>
 
                 <ion-col
-                    *ngFor="let celebrity of celebrities$ | async"
+                    *ngFor="let celebrity of celebrities"
                     size-xs="12"
                     size-sm="6"
                     size-md="4">
@@ -63,6 +63,15 @@
                 </ion-col>
 
             </ion-row>
+
+            <ion-infinite-scroll
+                threshold="100px"
+                (ionInfinite)="onInfiniteScroll($event)">
+                <ion-infinite-scroll-content
+                    loadingSpinner="bubbles"
+                    loadingText="Loading more celebrities...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
         </div>
 
         <!-- <div [style.display]="viewMode === 'list' ? 'block' : 'none'">

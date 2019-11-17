@@ -28,10 +28,12 @@ export class CelebritiesEffects {
             ofType(CelebritiesActionTypes.GetCelebrities),
             map((action: fromActions.GetCelebrities) => action.payload),
             switchMap((listFilter: CelebrityListFilter) => {
+                const { offset } = listFilter;
+
                 return this._celebritiesDataService
                     .getCelebrities(listFilter)
                     .pipe(
-                        map(({ celebrities, count }) => new fromActions.GetCelebritiesSuccess({ celebrities, count })),
+                        map(({ celebrities, count }) => new fromActions.GetCelebritiesSuccess({ celebrities, count, append: !!offset })),
                         catchError(() => of(new fromActions.GetCelebritiesFailure()))
                     );
             })

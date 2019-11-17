@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Store, select } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
 
 import * as fromCelebrities from '../../store';
 import { Celebrity, CelebrityListFilter } from '../../models';
@@ -11,9 +12,16 @@ import { Celebrity, CelebrityListFilter } from '../../models';
     providedIn: 'root'
 })
 export class CelebritiesService {
+    private _getCelebritiesSuccess$ = new Subject<void>();
+
     constructor(
-        private _store: Store<fromCelebrities.CelebritiesState>
-    ) {}
+        private _store: Store<fromCelebrities.CelebritiesState>,
+        private _actions$: Actions
+    ) {
+        this._actions$
+            .pipe(ofType(fromCelebrities.CelebritiesActionTypes.GetCelebritiesSuccess))
+            .subscribe(() => this._getCelebritiesSuccess$.next());
+    }
 
     // Actions
     getCelebrities(listFilter?: CelebrityListFilter): void {
@@ -55,5 +63,10 @@ export class CelebritiesService {
 
     get updateCelebrityLoading$(): Observable<boolean> {
         return this._store.pipe(select(fromCelebrities.getUpdateCelebrityLoading));
+    }
+
+    // Events
+    get getCelebritiesSuccess$(): Observable<void> {
+        return this._getCelebritiesSuccess$.asObservable();
     }
 }
