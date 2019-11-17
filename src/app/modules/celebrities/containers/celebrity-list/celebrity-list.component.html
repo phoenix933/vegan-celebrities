@@ -20,47 +20,42 @@
                     (changed)="onFilterChanged($event)">
                 </app-celebrity-list-filter>
             </ion-col>
-
-            <!-- <ion-col size="auto">
-                <ion-button [disabled]="viewMode === 'grid'" (click)="viewMode = 'grid'">
-                    <ion-icon name="grid">
-                    </ion-icon>
-                </ion-button>
-
-                <ion-button [disabled]="viewMode === 'list'" (click)="viewMode = 'list'">
-                    <ion-icon name="list">
-                    </ion-icon>
-                </ion-button>
-            </ion-col> -->
         </ion-row>
 
-        <div [style.display]="viewMode === 'grid' ? 'block' : 'none'">
+        <div>
             <ion-row>
+                <ion-virtual-scroll [items]="celebrities" approxItemHeight="240px">
 
-                <ion-col
-                    *ngFor="let celebrity of celebrities"
-                    size-xs="12"
-                    size-sm="6"
-                    size-md="4">
+                    <ion-col size="12" *virtualItem="let celebrity;">
 
-                    <ion-card [routerLink]="'/celebrities/view/' + celebrity.slug" class="celebrity-card">
-                        <ion-img class="celebrity-card__image" [src]="celebrity.imageUrl">
-                        </ion-img>
+                        <ion-card  class="celebrity-card">
+                            <div [routerLink]="'/celebrities/view/' + celebrity.slug">
+                                <ion-img class="celebrity-card__image" [src]="'https://vignette.wikia.nocookie.net/dcmovies/images/5/5c/Joaquin_Phoenix.jpg/revision/latest?cb=20180719151711'">
+                                </ion-img>
 
-                        <ion-card-header>
-                            <ion-card-subtitle class="celebrity-card__occupation">
-                                {{ celebrity.category }}
-                                >
-                                {{ celebrity.occupation }}
-                            </ion-card-subtitle>
+                                <div class="celebrity-card__content">
+                                    <ion-card-header>
+                                        <ion-card-title class="celebrity-card__name">
+                                            {{ celebrity.name }}
+                                        </ion-card-title>
+                                        <ion-card-subtitle class="celebrity-card__occupation">
+                                            {{ celebrity.category }}
+                                            >
+                                            {{ celebrity.occupation }}
+                                        </ion-card-subtitle>
+                                    </ion-card-header>
 
-                            <ion-card-title class="celebrity-card__name">
-                                {{ celebrity.name }}
-                            </ion-card-title>
-                        </ion-card-header>
-                    </ion-card>
+                                    <ion-card-content class="celebrity-card__about ion-hide-sm-down">
+                                        {{ celebrity.about }}
+                                    </ion-card-content>
+                                </div>
+                            </div>
 
-                </ion-col>
+                        </ion-card>
+
+                    </ion-col>
+
+                </ion-virtual-scroll>
 
             </ion-row>
 
@@ -73,35 +68,6 @@
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </div>
-
-        <!-- <div [style.display]="viewMode === 'list' ? 'block' : 'none'">
-            <ion-row>
-                <ion-col>
-                    <ion-list>
-
-                        <ion-item *ngFor="let celebrity of celebrities$ | async">
-
-                            <ion-avatar slot="start">
-                                <img [src]="celebrity.imageUrl" />
-                            </ion-avatar>
-
-                            <ion-label>
-                                <h2>
-                                    {{ celebrity.name }}
-                                </h2>
-                                <h3>
-                                    {{ celebrity.category }} > {{ celebrity.occupation }}
-                                </h3>
-                            </ion-label>
-
-                        </ion-item>
-
-                    </ion-list>
-                </ion-col>
-            </ion-row>
-        </div> -->
-
-
 
     </ion-grid>
 </ion-content>
