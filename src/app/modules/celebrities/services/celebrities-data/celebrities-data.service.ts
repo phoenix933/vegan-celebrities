@@ -1,46 +1,41 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable, from } from 'rxjs';
-
-import { Celebrity } from '../../models';
 import { map } from 'rxjs/operators';
+
+import { environment } from './../../../../../environments/environment';
+import { Celebrity } from '../../models';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CelebritiesDataService {
+    private _celebritiesUrl = `${environment.apiUrl}/celebrities`;
+
     constructor(
-        private _firestore: AngularFirestore
+        private _firestore: AngularFirestore,
+        private _http: HttpClient
     ) {}
 
-    getCelebrities(): Observable<Celebrity[]> {
-        return this._firestore.collection<Celebrity>('celebrities').valueChanges();
+    getCelebrities(): Observable<{ celebrities: Celebrity[], count: number }> {
+        return this._http.get<{ celebrities: Celebrity[], count: number }>(this._celebritiesUrl);
     }
 
     getCelebrity(slug: string): Observable<Celebrity> {
-        return this._firestore
-            .collection<Celebrity>('celebrities', (ref) => {
-                return ref.where('slug', '==', slug).limit(1);
-            })
-            .valueChanges()
-            .pipe(
-                map((celebrities: Celebrity[]) => celebrities.length ? celebrities.pop() : null )
-            );
+        return this._http.get<Celebrity>(`${this._celebritiesUrl}/${slug}`);
     }
 
     createCelebrity(celebrity: Celebrity): Observable<any> {
-        return from(
-            this._firestore
-                .collection<Celebrity>('celebrities')
-                .add(celebrity)
-            );
+        return this._http.post<Celebrity>(this._celebritiesUrl, celebrity);
     }
 
-    updateCelebrity(id: string, celebrity: Celebrity): Observable<void> {
-        return from(this._firestore
-            .collection<Celebrity>('celebrities')
-            .doc(id)
-            .update(celebrity));
+    updateCelebrity(slug: string, celebrity: Celebrity): Observable<Celebrity> {
+        return this._http.put<Celebrity>(`${this._celebritiesUrl}/${slug}`, celebrity);
+    }
+
+    deleteCelebrity(slug: string): Observable<any> {
+        return this._http.delete(`${this._celebritiesUrl}/${slug}`);
     }
 }

@@ -14,34 +14,81 @@
 
 <ion-content>
     <ion-grid>
+        <ion-row class="ion-justify-content-end">
+            <ion-col size="auto">
+                <ion-button [disabled]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+                    <ion-icon name="grid">
+                    </ion-icon>
+                </ion-button>
 
-        <ion-row>
-
-            <ion-col
-                *ngFor="let celebrity of celebrities$ | async"
-                size-xs="12"
-                size-sm="6"
-                size-md="4">
-                <ion-card [routerLink]="'/celebrities/view/' + celebrity.slug" class="celebrity-card">
-                    <ion-img class="celebrity-card__image" [src]="celebrity.imageUrl">
-                    </ion-img>
-
-                    <ion-card-header>
-                        <ion-card-subtitle class="celebrity-card__occupation">
-                            {{ celebrity.category }}
-                            >
-                            {{ celebrity.occupation }}
-                        </ion-card-subtitle>
-
-                        <ion-card-title class="celebrity-card__name">
-                            {{ celebrity.name }}
-                        </ion-card-title>
-                    </ion-card-header>
-                </ion-card>
-
+                <ion-button [disabled]="viewMode === 'list'" (click)="viewMode = 'list'">
+                    <ion-icon name="list">
+                    </ion-icon>
+                </ion-button>
             </ion-col>
-
         </ion-row>
+
+
+
+        <div [style.display]="viewMode === 'grid' ? 'block' : 'none'">
+            <ion-row>
+
+                <ion-col
+                    *ngFor="let celebrity of celebrities$ | async"
+                    size-xs="12"
+                    size-sm="6"
+                    size-md="4">
+
+                    <ion-card [routerLink]="'/celebrities/view/' + celebrity.slug" class="celebrity-card">
+                        <ion-img class="celebrity-card__image" [src]="celebrity.imageUrl">
+                        </ion-img>
+
+                        <ion-card-header>
+                            <ion-card-subtitle class="celebrity-card__occupation">
+                                {{ celebrity.category }}
+                                >
+                                {{ celebrity.occupation }}
+                            </ion-card-subtitle>
+
+                            <ion-card-title class="celebrity-card__name">
+                                {{ celebrity.name }}
+                            </ion-card-title>
+                        </ion-card-header>
+                    </ion-card>
+
+                </ion-col>
+
+            </ion-row>
+        </div>
+
+        <div [style.display]="viewMode === 'list' ? 'block' : 'none'">
+            <ion-row>
+                <ion-col>
+                    <ion-list>
+
+                        <ion-item *ngFor="let celebrity of celebrities$ | async">
+
+                            <ion-avatar slot="start">
+                                <img [src]="celebrity.imageUrl" />
+                            </ion-avatar>
+
+                            <ion-label>
+                                <h2>
+                                    {{ celebrity.name }}
+                                </h2>
+                                <h3>
+                                    {{ celebrity.category }} > {{ celebrity.occupation }}
+                                </h3>
+                            </ion-label>
+
+                        </ion-item>
+
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+        </div>
+
+
 
     </ion-grid>
 </ion-content>

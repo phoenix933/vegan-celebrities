@@ -18,6 +18,18 @@
             <ion-col>
                 <ion-item>
                     <ion-label position="floating">
+                        Slug *
+                    </ion-label>
+                    <ion-input formControlName="slug" type="text" placeholder="e.g. joaquin-phoenix">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating">
                         About *
                     </ion-label>
                     <ion-textarea formControlName="about" placeholder="e.g. Joaquin Rafael Phoenix is a Puerto Rican-born American actor, as well as a producer, and an activist..">
@@ -158,6 +170,8 @@
 
         <ion-row class="ion-justify-content-end">
             <ion-col size="auto">
+                loading: {{ loading }}; celebrityForm.invalid: {{ celebrityForm.invalid }}
+
                 <ion-button [disabled]="celebrityForm.invalid || loading" type="submit">
                     {{ loading ? 'Saving celebrity..' : 'Save celebrity' }}
                 </ion-button>

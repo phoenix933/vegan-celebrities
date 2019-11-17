@@ -12,6 +12,8 @@ import { CelebritiesService } from './../../services';
 export class CelebrityListComponent implements OnInit {
     celebrities$: Observable<any>;
 
+    viewMode: 'grid' | 'list' = 'grid';
+
     constructor(
         private _celebritiesService: CelebritiesService
     ) { }

@@ -30,7 +30,7 @@ export class CelebritiesEffects {
                 return this._celebritiesDataService
                     .getCelebrities()
                     .pipe(
-                        map((celebrities: Celebrity[]) => new fromActions.GetCelebritiesSuccess(celebrities)),
+                        map(({celebrities}) => new fromActions.GetCelebritiesSuccess(celebrities)),
                         catchError(() => of(new fromActions.GetCelebritiesFailure()))
                     );
             })

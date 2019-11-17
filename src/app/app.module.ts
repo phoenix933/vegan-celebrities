@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -26,6 +27,7 @@ import { environment } from 'src/environments/environment';
     entryComponents: [],
     imports: [
         BrowserModule,
+        HttpClientModule,
 
         IonicModule.forRoot(),
 

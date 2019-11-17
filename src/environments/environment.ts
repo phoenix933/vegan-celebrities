@@ -2,7 +2,8 @@ import { firebaseConfig } from './../config';
 
 export const environment = {
     production: false,
-    firebase: firebaseConfig
+    firebase: firebaseConfig,
+    apiUrl: 'http://localhost:3000'
 };
 
 // This file can be replaced during build by using the `fileReplacements` array.
