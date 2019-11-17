@@ -40,9 +40,7 @@ export class CelebrityFormComponent implements OnChanges, OnInit {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.celebrity && changes.celebrity.currentValue) {
             const celebrity = changes.celebrity.currentValue as Celebrity;
-            const { birthdate } = celebrity;
-
-            this.celebrityForm.patchValue({ ...celebrity, birthdate: birthdate ? birthdate.toDate().toISOString() : null });
+            this.celebrityForm.patchValue(celebrity);
         }
     }
 

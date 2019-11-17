@@ -7,7 +7,7 @@ export interface Celebrity {
     category: string;
     occupation: string;
     slug: string;
-    birthdate?: firestore.Timestamp;
+    birthdate?: Date;
     birthplace?: string;
     height?: number;
     partner?: string;
