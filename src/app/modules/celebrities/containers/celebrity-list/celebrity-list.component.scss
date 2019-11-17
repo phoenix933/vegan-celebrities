@@ -32,6 +32,24 @@
     &__occupation {
         text-transform: capitalize;
     }
+
+    &.skeleton {
+        .celebrity-card__image {
+            ion-skeleton-text {
+                margin: 0;
+            }
+        }
+
+        .celebrity-card__name {
+            ion-skeleton-text {
+                line-height: 20px;
+            }
+        }
+
+        ion-skeleton-text {
+            line-height: 14px;
+        }
+    }
 }
 
 @media (max-width: 768px) {

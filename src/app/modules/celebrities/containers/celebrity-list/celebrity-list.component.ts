@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
+import { takeUntil, skip, map } from 'rxjs/operators';
 
 import { CelebrityListFilter, Celebrity } from './../../models';
 import { CelebritiesService } from './../../services';
@@ -16,7 +16,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     count$: Observable<number>;
     getCelebritiesLoading$: Observable<boolean>;
 
-    viewMode: 'grid' | 'list' = 'grid';
+    firstLoaded = false;
 
     private _infiniteScrollEvent: any;
 
@@ -29,14 +29,28 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
         private _celebritiesService: CelebritiesService
     ) { }
 
+    get loading$(): Observable<boolean> {
+        return combineLatest([
+            this.getCelebritiesLoading$,
+            this._filter$.pipe(map((filter: CelebrityListFilter) => !filter.offset))
+        ])
+        .pipe(map(([getCelebritiesLoading, isOffsetZero]) => getCelebritiesLoading && isOffsetZero));
+    }
+
     ngOnInit(): void {
         this.count$ = this._celebritiesService.count$;
         this.getCelebritiesLoading$ = this._celebritiesService.getCelebritiesLoading$;
 
         this._celebritiesService
             .celebrities$
-            .pipe(takeUntil(this._unsubscribeAll$))
-            .subscribe((celebrities: Celebrity[]) => this.celebrities = celebrities);
+            .pipe(
+                skip(1),
+                takeUntil(this._unsubscribeAll$)
+            )
+            .subscribe((celebrities: Celebrity[]) => {
+                this.firstLoaded = true;
+                this.celebrities = celebrities;
+            });
 
         this._filter$
             .asObservable()
