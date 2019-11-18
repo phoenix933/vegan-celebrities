@@ -41,8 +41,9 @@
                     <ion-label position="floating">Country</ion-label>
                     <ion-select formControlName="country" interface="action-sheet">
                         <ion-select-option value="">All countries</ion-select-option>
-                        <ion-select-option value="f">Bulgaria</ion-select-option>
-                        <ion-select-option value="m">United States</ion-select-option>
+                        <ion-select-option *ngFor="let country of countries" [value]="country.code">
+                            {{ country.name }}
+                        </ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>
