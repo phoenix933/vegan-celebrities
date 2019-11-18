@@ -1,11 +1,5 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons slot="end">
-            <ion-button routerLink="/celebrities/add">
-                <ion-icon name="add">
-                </ion-icon>
-            </ion-button>
-        </ion-buttons>
         <ion-title>
             Vegan Celebrities
         </ion-title>
@@ -16,6 +10,12 @@
     <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button routerLink="/celebrities/add">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
     <ion-grid>
         <ion-row>
