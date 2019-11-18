@@ -1,5 +1,8 @@
 import { FormBuilder } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CelebrityListFilter } from './../../models';
 
@@ -8,21 +11,38 @@ import { CelebrityListFilter } from './../../models';
     templateUrl: './celebrity-list-filter.component.html',
     styleUrls: ['./celebrity-list-filter.component.scss'],
 })
-export class CelebrityListFilterComponent implements OnInit {
+export class CelebrityListFilterComponent implements OnInit, OnDestroy {
     @Output()
     changed = new EventEmitter<CelebrityListFilter>();
 
     filterForm = this._formBuilder.group({
-        search: ['']
+        search: [''],
+        category: [''],
+        sex: [''],
+        country: ['']
     });
+
+    showOptions = false;
+
+    private _unsubscribeAll$ = new Subject<void>();
 
     constructor(
         private _formBuilder: FormBuilder
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.filterForm
+            .valueChanges
+            .pipe(takeUntil(this._unsubscribeAll$))
+            .subscribe((value: CelebrityListFilter) => this.changed.emit(value));
+    }
 
-    changeFilter(): void {
-        this.changed.emit(this.filterForm.value);
+    ngOnDestroy() {
+        this._unsubscribeAll$.next();
+        this._unsubscribeAll$.complete();
+    }
+
+    toggleOptions(): void {
+        this.showOptions = !this.showOptions;
     }
 }

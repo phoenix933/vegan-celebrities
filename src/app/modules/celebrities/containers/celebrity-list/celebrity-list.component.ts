@@ -72,8 +72,11 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
         this._unsubscribeAll$.complete();
     }
 
-    onChange({ detail: { value } }) {
-        this._filter$.next({ ...this._defaultFilter, search: value });
+    refresh(event: any): void {
+        this._infiniteScrollEvent = event;
+
+        const currentValue = this._filter$.getValue();
+        this._filter$.next({ ...currentValue, offset: 0 });
     }
 
     onFilterChanged(filter: CelebrityListFilter): void {

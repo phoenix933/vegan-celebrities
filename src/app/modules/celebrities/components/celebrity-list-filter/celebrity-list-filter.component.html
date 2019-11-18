@@ -1,20 +1,45 @@
 <form [formGroup]="filterForm" (submit)="changeFilter()">
     <ion-grid>
-        <ion-row class="ion-justify-content-between">
+        <ion-row class="ion-align-items-center">
             <ion-col>
+                <ion-searchbar formControlName="search" animated debounce="500"></ion-searchbar>
+            </ion-col>
+            <ion-col size="auto">
+                <ion-button color="light" (click)="toggleOptions()">
+                    <ion-icon name="options"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="showOptions">
+            <ion-col size="12" size-md="4">
                 <ion-item>
-                    <ion-label position="floating">
-                        Search
-                    </ion-label>
-                    <ion-input formControlName="search" type="text" placeholder="Type name, occupation, partner or just anything..">
-                    </ion-input>
+                    <ion-label position="floating">Category</ion-label>
+                    <ion-select formControlName="category" interface="action-sheet">
+                        <ion-select-option value="f">Entertainment</ion-select-option>
+                        <ion-select-option value="m">Science</ion-select-option>
+                    </ion-select>
                 </ion-item>
             </ion-col>
 
-            <ion-col size-xs="12" size-md="auto" class="ion-align-self-end">
-                <ion-button type="submit">
-                    Search
-                </ion-button>
+            <ion-col size="12" size-md="4">
+                <ion-item>
+                    <ion-label position="floating">Sex</ion-label>
+                    <ion-select formControlName="sex" interface="action-sheet">
+                        <ion-select-option value="f">Female</ion-select-option>
+                        <ion-select-option value="m">Male</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+                <ion-item>
+                    <ion-label position="floating">Country</ion-label>
+                    <ion-select formControlName="country" interface="action-sheet">
+                        <ion-select-option value="f">Bulgaria</ion-select-option>
+                        <ion-select-option value="m">United States</ion-select-option>
+                    </ion-select>
+                </ion-item>
             </ion-col>
         </ion-row>
     </ion-grid>
