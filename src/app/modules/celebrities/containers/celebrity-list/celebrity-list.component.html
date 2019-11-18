@@ -33,8 +33,6 @@
             </ion-col>
         </ion-row>
 
-
-
         <ion-row *ngIf="showFilters">
 
             <ion-col size="12" size-md="4">
@@ -71,114 +69,36 @@
 
         <ion-row *ngIf="loading$ | async; else loaded">
             <ion-col *ngFor="let skeleton of [1, 2, 3]" size="12">
-
-                    <ion-card  class="celebrity-card skeleton">
-                        <div>
-                            <div class="celebrity-card__image">
-                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                            </div>
-
-                            <div class="celebrity-card__content">
-                                <ion-card-header>
-                                    <ion-card-title class="celebrity-card__name">
-                                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                                    </ion-card-title>
-                                    <ion-card-subtitle class="celebrity-card__occupation">
-                                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                                    </ion-card-subtitle>
-                                </ion-card-header>
-
-                                <ion-card-content class="celebrity-card__about ion-hide-sm-down">
-                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                                </ion-card-content>
-                            </div>
-                        </div>
-
-                    </ion-card>
-
-                </ion-col>
+                <app-celebrity-item-skeleton></app-celebrity-item-skeleton>
+            </ion-col>
         </ion-row>
 
         <ng-template #loaded>
             <div *ngIf="celebrities && celebrities.length">
                 <ion-row>
                     <ion-virtual-scroll [items]="celebrities" approxItemHeight="240px">
-
                         <ion-col size="12" *virtualItem="let celebrity;">
 
-                            <ion-card  class="celebrity-card">
-                                <div [routerLink]="'/celebrities/view/' + celebrity.slug">
-                                    <ion-img class="celebrity-card__image" [src]="'https://vignette.wikia.nocookie.net/dcmovies/images/5/5c/Joaquin_Phoenix.jpg/revision/latest?cb=20180719151711'">
-                                    </ion-img>
-
-                                    <div class="celebrity-card__content">
-                                        <ion-card-header>
-                                            <ion-card-title class="celebrity-card__name">
-                                                {{ celebrity.name }}
-                                            </ion-card-title>
-                                            <ion-card-subtitle class="celebrity-card__occupation">
-                                                {{ celebrity.category }}
-                                                >
-                                                {{ celebrity.occupation }}
-                                            </ion-card-subtitle>
-                                        </ion-card-header>
-
-                                        <ion-card-content class="celebrity-card__about ion-hide-sm-down">
-                                            {{ celebrity.about }}
-                                        </ion-card-content>
-                                    </div>
-                                </div>
-
-                            </ion-card>
+                            <app-celebrity-item
+                                [celebrity]="celebrity">
+                            </app-celebrity-item>
 
                         </ion-col>
-
                     </ion-virtual-scroll>
-
                 </ion-row>
 
                 <ion-infinite-scroll
                     threshold="100px"
                     (ionInfinite)="onInfiniteScroll($event)">
                     <ion-infinite-scroll-content>
-                            <ion-col size="12">
-
-                                    <ion-card  class="celebrity-card skeleton">
-                                        <div>
-                                            <div class="celebrity-card__image">
-                                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                            </div>
-
-                                            <div class="celebrity-card__content">
-                                                <ion-card-header>
-                                                    <ion-card-title class="celebrity-card__name">
-                                                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                                                    </ion-card-title>
-                                                    <ion-card-subtitle class="celebrity-card__occupation">
-                                                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                                                    </ion-card-subtitle>
-                                                </ion-card-header>
-
-                                                <ion-card-content class="celebrity-card__about ion-hide-sm-down">
-                                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-                                                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                                                </ion-card-content>
-                                            </div>
-                                        </div>
-
-                                    </ion-card>
-
-                                </ion-col>
+                        <ion-col size="12">
+                            <app-celebrity-item-skeleton>
+                            </app-celebrity-item-skeleton>
+                        </ion-col>
                     </ion-infinite-scroll-content>
                 </ion-infinite-scroll>
             </div>
         </ng-template>
-
 
     </ion-grid>
 </ion-content>
