@@ -21,6 +21,7 @@
         <ion-row>
             <ion-col class="ion-padding">
                 <app-celebrity-list-filter
+                    [categories]="categories$ | async"
                     (changed)="onFilterChanged($event)">
                 </app-celebrity-list-filter>
             </ion-col>

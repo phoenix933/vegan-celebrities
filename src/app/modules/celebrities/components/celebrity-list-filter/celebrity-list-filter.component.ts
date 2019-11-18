@@ -1,9 +1,10 @@
 import { FormBuilder } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { Category } from './../../../../models';
 import { CelebrityListFilter } from './../../models';
 
 @Component({
@@ -12,6 +13,9 @@ import { CelebrityListFilter } from './../../models';
     styleUrls: ['./celebrity-list-filter.component.scss'],
 })
 export class CelebrityListFilterComponent implements OnInit, OnDestroy {
+    @Input()
+    categories: Category[];
+
     @Output()
     changed = new EventEmitter<CelebrityListFilter>();
 

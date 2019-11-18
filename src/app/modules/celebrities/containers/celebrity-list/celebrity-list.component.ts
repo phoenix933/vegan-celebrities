@@ -3,6 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { takeUntil, skip, map } from 'rxjs/operators';
 
+import { Category } from './../../../../models';
+import { CategoriesService } from './../../../../services';
 import { CelebrityListFilter, Celebrity } from './../../models';
 import { CelebritiesService } from './../../services';
 
@@ -15,6 +17,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     celebrities: Celebrity[];
     count$: Observable<number>;
     getCelebritiesLoading$: Observable<boolean>;
+    categories$: Observable<Category[]>;
 
     firstLoaded = false;
 
@@ -26,7 +29,8 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     private _unsubscribeAll$ = new Subject<void>();
 
     constructor(
-        private _celebritiesService: CelebritiesService
+        private _celebritiesService: CelebritiesService,
+        private _categoriesService: CategoriesService
     ) { }
 
     get loading$(): Observable<boolean> {
@@ -40,6 +44,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.count$ = this._celebritiesService.count$;
         this.getCelebritiesLoading$ = this._celebritiesService.getCelebritiesLoading$;
+        this.categories$ = this._categoriesService.categories$;
 
         this._celebritiesService
             .celebrities$
