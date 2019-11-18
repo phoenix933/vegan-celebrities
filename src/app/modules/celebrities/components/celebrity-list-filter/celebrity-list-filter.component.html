@@ -29,8 +29,9 @@
                     <ion-label position="floating">Sex</ion-label>
                     <ion-select formControlName="sex" interface="action-sheet">
                         <ion-select-option value="">All sexes</ion-select-option>
-                        <ion-select-option value="f">Female</ion-select-option>
-                        <ion-select-option value="m">Male</ion-select-option>
+                        <ion-select-option *ngFor="let sex of Sex | keyvalue" [value]="sex.value">
+                            {{ sex.key }}
+                        </ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>

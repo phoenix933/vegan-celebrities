@@ -4,6 +4,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angu
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { Sex } from './../../../../enums';
 import { Category } from './../../../../models';
 import { CelebrityListFilter } from './../../models';
 
@@ -18,6 +19,8 @@ export class CelebrityListFilterComponent implements OnInit, OnDestroy {
 
     @Output()
     changed = new EventEmitter<CelebrityListFilter>();
+
+    Sex = Sex;
 
     filterForm = this._formBuilder.group({
         search: [''],
