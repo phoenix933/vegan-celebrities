@@ -49,6 +49,7 @@
 
                 <ion-infinite-scroll
                     threshold="100px"
+                    [disabled]="(count$ | async) === celebrities.length"
                     (ionInfinite)="onInfiniteScroll($event)">
                     <ion-infinite-scroll-content>
                         <ion-col size="12">
