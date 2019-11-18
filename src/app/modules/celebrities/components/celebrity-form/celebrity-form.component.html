@@ -42,14 +42,14 @@
             <ion-col size-xs="12" size-sm="6" size-lg="3">
                 <ion-item>
                     <ion-label position="floating">
-                        Category *
+                        Sex *
                     </ion-label>
-                    <ion-select formControlName="category" placeholder="e.g. Entertainment">
-                        <ion-select-option value="entertainment">
-                            Entertainment
+                    <ion-select formControlName="sex" placeholder="e.g. Female">
+                        <ion-select-option value="male">
+                            Male
                         </ion-select-option>
-                        <ion-select-option value="healthcare">
-                            Healthcare
+                        <ion-select-option value="female">
+                            Female
                         </ion-select-option>
                     </ion-select>
                 </ion-item>
@@ -59,8 +59,17 @@
                     <ion-label position="floating">
                         Occupation *
                     </ion-label>
-                    <ion-input formControlName="occupation" type="text" placeholder="e.g. Actor">
+                    <ion-input formControlName="occupationId" type="text" placeholder="e.g. Actor">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
 
+            <ion-col size-xs="12" size-sm="6" size-lg="3">
+                <ion-item>
+                    <ion-label position="floating">
+                        Country *
+                    </ion-label>
+                    <ion-input formControlName="country" type="text" placeholder="e.g. San Juan, Puerto Rico">
                     </ion-input>
                 </ion-item>
             </ion-col>
@@ -75,15 +84,6 @@
                         display-format="DD MMM YYYY"
                         placeholder="e.g. 28 Oct 1974">
                     </ion-datetime>
-                </ion-item>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" size-lg="3">
-                <ion-item>
-                    <ion-label position="floating">
-                        Birthplace
-                    </ion-label>
-                    <ion-input formControlName="birthplace" type="text" placeholder="e.g. San Juan, Puerto Rico">
-                    </ion-input>
                 </ion-item>
             </ion-col>
         </ion-row>

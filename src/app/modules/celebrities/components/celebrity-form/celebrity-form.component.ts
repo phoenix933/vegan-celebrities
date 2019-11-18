@@ -13,10 +13,10 @@ export class CelebrityFormComponent implements OnChanges, OnInit {
         name: ['', [Validators.required]],
         slug: ['', [Validators.required]],
         about: ['', [Validators.required]],
-        category: ['', [Validators.required]],
-        occupation: ['', [Validators.required]],
+        sex: ['', [Validators.required]],
+        country: ['', []],
+        occupationId: ['', [Validators.required]],
         birthdate: ['', []],
-        birthplace: ['', []],
         height: ['', []],
         partner: ['', []],
         imageUrl: ['', [Validators.required]],
@@ -40,7 +40,7 @@ export class CelebrityFormComponent implements OnChanges, OnInit {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.celebrity && changes.celebrity.currentValue) {
             const celebrity = changes.celebrity.currentValue as Celebrity;
-            this.celebrityForm.patchValue(celebrity);
+            this.celebrityForm.patchValue({ ...celebrity, occupationId: celebrity.occupation.id });
         }
     }
 

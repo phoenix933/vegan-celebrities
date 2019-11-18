@@ -36,7 +36,7 @@
                             <ion-icon name="checkmark-circle" color="secondary" size="small"></ion-icon>
                         </div>
                         <div class="celebrity__occupation">
-                            {{ celebrity.category }} > {{ celebrity.occupation }}
+                            {{ celebrity.category.name }} > {{ celebrity.occupation.name }}
                         </div>
                     </div>
                 </div>
@@ -64,13 +64,14 @@
 
                 <div>
 
-                    <div *ngIf="celebrity.birthdate || celebrity.birthplace">
+                    <div *ngIf="celebrity.birthdate || celebrity.country">
                         <strong>Born: </strong>
                         <span>
                             <span *ngIf="celebrity.birthdate">{{ celebrity.birthdate | date: 'dd MMM yyyy' }}</span>
-                            <span *ngIf="celebrity.birthplace">,
-                                <a [href]="'https://www.google.com/maps/place/' + celebrity.birthplace" target="_blank" >
-                                    {{ celebrity.birthplace }}
+                            <span *ngIf="celebrity.birthdate && celebrity.country">,</span>
+                            <span *ngIf="celebrity.country">
+                                <a [href]="'https://www.google.com/maps/place/' + celebrity.country" target="_blank" >
+                                    {{ celebrity.country }}
                                 </a>
                             </span>
                         </span>
