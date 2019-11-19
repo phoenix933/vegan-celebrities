@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -33,7 +33,7 @@ import { environment } from 'src/environments/environment';
 
         // Firebase
         AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
+        AngularFireAuthModule,
 
         // Store
         StoreModule.forRoot(reducers, {
