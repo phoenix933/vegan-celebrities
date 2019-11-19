@@ -9,17 +9,16 @@
                 <ion-back-button defaultHref="/celebrities">
                 </ion-back-button>
             </ion-buttons>
-
-            <ion-buttons slot="end">
-                <ion-button [routerLink]="'/celebrities/edit/' + celebrity.slug">
-                    <ion-icon name="create">
-                    </ion-icon>
-                </ion-button>
-            </ion-buttons>
         </ion-toolbar>
     </ion-header>
 
     <ion-content class="ion-padding">
+        <ion-fab *ngIf="(userRole$ | async) === UserRole.Admin" vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button [routerLink]="'/celebrities/edit/' + celebrity.slug">
+                <ion-icon name="create"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+
         <ion-grid>
 
             <div class="celebrity">
