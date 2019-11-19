@@ -1,8 +1,13 @@
-<form [formGroup]="filterForm" (submit)="changeFilter()">
+<form [formGroup]="filterForm" (submit)="submit()">
     <ion-grid>
         <ion-row class="ion-align-items-center">
             <ion-col>
                 <ion-searchbar formControlName="search" animated debounce="500"></ion-searchbar>
+            </ion-col>
+            <ion-col size="auto">
+                <ion-button color="light" type="submit">
+                    <ion-icon name="search"></ion-icon>
+                </ion-button>
             </ion-col>
             <ion-col size="auto">
                 <ion-button color="light" (click)="toggleOptions()">
