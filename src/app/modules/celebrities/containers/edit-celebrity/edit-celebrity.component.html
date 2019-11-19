@@ -18,6 +18,7 @@
         <app-celebrity-form
             [celebrity]="celebrity"
             [loading]="updateCelebrityLoading$ | async"
+            [occupations]="occupations$ | async"
             (submitted)="updateCelebrity($event)">
         </app-celebrity-form>
 

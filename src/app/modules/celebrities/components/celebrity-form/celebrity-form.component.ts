@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+import countries from './../../../../../assets/data/countries.json';
+import { Sex } from './../../../../enums';
+import { Occupation } from './../../../../models';
 import { Celebrity } from './../../models';
 
 @Component({
@@ -9,6 +12,14 @@ import { Celebrity } from './../../models';
     styleUrls: ['./celebrity-form.component.scss'],
 })
 export class CelebrityFormComponent implements OnChanges, OnInit {
+    @Input() celebrity: Celebrity;
+    @Input() loading = false;
+    @Input() occupations: Occupation[];
+    @Output() submitted = new EventEmitter<Celebrity>();
+
+    Sex = Sex;
+    countries = countries;
+
     celebrityForm = this._formBuilder.group({
         name: ['', [Validators.required]],
         slug: ['', [Validators.required]],
@@ -28,10 +39,6 @@ export class CelebrityFormComponent implements OnChanges, OnInit {
             youtube: ['', []],
         })
     });
-
-    @Input() celebrity: Celebrity;
-    @Input() loading = false;
-    @Output() submitted = new EventEmitter<Celebrity>();
 
     constructor(
         private _formBuilder: FormBuilder

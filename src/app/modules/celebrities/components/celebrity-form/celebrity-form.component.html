@@ -44,12 +44,10 @@
                     <ion-label position="floating">
                         Sex *
                     </ion-label>
-                    <ion-select formControlName="sex" placeholder="e.g. Female">
-                        <ion-select-option value="male">
-                            Male
-                        </ion-select-option>
-                        <ion-select-option value="female">
-                            Female
+                    <ion-select formControlName="sex" interface="action-sheet">
+                        <ion-select-option value="">All sexes</ion-select-option>
+                        <ion-select-option *ngFor="let sex of Sex | keyvalue" [value]="sex.value">
+                            {{ sex.key }}
                         </ion-select-option>
                     </ion-select>
                 </ion-item>
@@ -59,8 +57,12 @@
                     <ion-label position="floating">
                         Occupation *
                     </ion-label>
-                    <ion-input formControlName="occupationId" type="text" placeholder="e.g. Actor">
-                    </ion-input>
+                    <ion-select formControlName="occupationId" interface="action-sheet">
+                        <ion-select-option value="">All occupations</ion-select-option>
+                        <ion-select-option *ngFor="let occupation of occupations" [value]="occupation.id">
+                            {{ occupation.name }}
+                        </ion-select-option>
+                    </ion-select>
                 </ion-item>
             </ion-col>
 
@@ -69,8 +71,12 @@
                     <ion-label position="floating">
                         Country *
                     </ion-label>
-                    <ion-input formControlName="country" type="text" placeholder="e.g. San Juan, Puerto Rico">
-                    </ion-input>
+                    <ion-select formControlName="country" interface="action-sheet">
+                        <ion-select-option value="">All countries</ion-select-option>
+                        <ion-select-option *ngFor="let country of countries" [value]="country.code">
+                            {{ country.name }}
+                        </ion-select-option>
+                    </ion-select>
                 </ion-item>
             </ion-col>
 

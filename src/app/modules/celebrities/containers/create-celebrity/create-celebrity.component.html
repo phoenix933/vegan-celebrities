@@ -15,6 +15,7 @@
 
     <app-celebrity-form
         [loading]="createCelebrityLoading$ | async"
+        [occupations]="occupations$ | async"
         (submitted)="createCelebrity($event)">
     </app-celebrity-form>
 

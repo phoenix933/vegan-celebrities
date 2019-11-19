@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { Occupation } from './../../../../models';
+import { OccupationsService } from './../../../../services';
 import { CelebritiesService } from './../../services';
 import { Celebrity } from './../../models';
 
@@ -12,13 +14,16 @@ import { Celebrity } from './../../models';
 })
 export class CreateCelebrityComponent implements OnInit {
     createCelebrityLoading$: Observable<boolean>;
+    occupations$: Observable<Occupation[]>;
 
     constructor(
-        private _celebritiesService: CelebritiesService
+        private _celebritiesService: CelebritiesService,
+        private _occupationsService: OccupationsService
     ) { }
 
     ngOnInit(): void {
         this.createCelebrityLoading$ = this._celebritiesService.createCelebrityLoading$;
+        this.occupations$ = this._occupationsService.occupations$;
     }
 
     createCelebrity(celebrity: Celebrity): void {
