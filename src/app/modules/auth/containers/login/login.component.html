@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Login
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="loginForm" (submit)="signIn()">
+        <ion-grid>
+            <ion-row>
+                <ion-col size-sm="6" offset-sm="3">
+                    <ion-list>
+
+                        <ion-item>
+                            <ion-label position="floating">
+                                Email
+                            </ion-label>
+                            <ion-input type="email" formControlName="email" placeholder="e.g. john.doe@gmail.com"></ion-input>
+                        </ion-item>
+
+                        <ion-label *ngIf="loginForm.get('email').errors?.email" color="danger" class="ion-padding">
+                            Email is invalid
+                        </ion-label>
+
+                        <ion-label *ngIf="loginForm.get('email').touched && loginForm.get('email').errors?.required" color="danger" class="ion-padding">
+                            Email is required
+                        </ion-label>
+
+                        <ion-item>
+                            <ion-label position="floating">
+                                Password
+                            </ion-label>
+                            <ion-input type="password" formControlName="password" placeholder="Type your password"></ion-input>
+                        </ion-item>
+
+                        <ion-label *ngIf="loginForm.get('password').touched && loginForm.get('password').errors?.required" color="danger" class="ion-padding">
+                            Password is required
+                        </ion-label>
+
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size-sm="6" offset-sm="3">
+
+                    <ion-button
+                        [disabled]="!loginForm.valid || (signInLoading$ | async)"
+                        type="submit"
+                        color="primary"
+                        expand="block">
+
+                        <ng-container *ngIf="signInLoading$ | async; else loaded">
+                            <ion-spinner ></ion-spinner>
+                            <ion-label class="ion-padding">
+                                    Signing in..
+                            </ion-label>
+                        </ng-container>
+
+                        <ng-template #loaded>
+                            Sign in
+                        </ng-template>
+
+                    </ion-button>
+
+                </ion-col>
+            </ion-row>
+
+        </ion-grid>
+    </form>
+</ion-content>

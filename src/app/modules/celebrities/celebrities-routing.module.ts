@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard, RolesGuard } from '../auth/guards';
+import { UserRole } from '../auth/enums';
 import { CelebrityDetailComponent, CelebrityListComponent, CreateCelebrityComponent, EditCelebrityComponent } from './containers';
 
 const routes: Routes = [
@@ -15,11 +17,21 @@ const routes: Routes = [
     },
     {
         path: 'add',
-        component: CreateCelebrityComponent
+        component: CreateCelebrityComponent,
+        canActivate: [AuthGuard, RolesGuard],
+        data: {
+            roles: [UserRole.Admin],
+            redirectTo: '/celebrities/list'
+        }
     },
     {
         path: 'edit/:celebritySlug',
-        component: EditCelebrityComponent
+        component: EditCelebrityComponent,
+        canActivate: [AuthGuard, RolesGuard],
+        data: {
+            roles: [UserRole.Admin],
+            redirectTo: '/celebrities/list'
+        }
     },
     {
         path: 'view/:celebritySlug',

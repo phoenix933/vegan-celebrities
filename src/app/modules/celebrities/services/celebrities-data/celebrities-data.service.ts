@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable, from } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
@@ -15,7 +14,6 @@ export class CelebritiesDataService {
     private _celebritiesUrl = `${environment.apiUrl}/celebrities`;
 
     constructor(
-        private _firestore: AngularFirestore,
         private _http: HttpClient
     ) {}
 

@@ -17,6 +17,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CustomSerializer, reducers, effects } from './store';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthInterceptor } from './modules/auth/interceptors';
 
 import { environment } from 'src/environments/environment';
 
@@ -50,7 +52,8 @@ import { environment } from 'src/environments/environment';
             logOnly: environment.production
         }),
 
-        AppRoutingModule
+        AppRoutingModule,
+        AuthModule
     ],
     providers: [
         StatusBar,
@@ -62,6 +65,11 @@ import { environment } from 'src/environments/environment';
         {
             provide: RouterStateSerializer,
             useClass: CustomSerializer
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
         },
     ],
     bootstrap: [
