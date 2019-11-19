@@ -1,3 +1,19 @@
 ion-button {
     width: 100%;
 }
+
+.options {
+    height: auto;
+    overflow: hidden;
+    max-height: 50em;
+
+
+    &.collapsed {
+        max-height: 0;
+        transition: max-height 1s ease-in-out;
+    }
+
+    &.expanded {
+        transition: max-height 1s ease-in;
+    }
+}

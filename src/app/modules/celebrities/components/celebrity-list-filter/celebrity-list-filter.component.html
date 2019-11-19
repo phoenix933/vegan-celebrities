@@ -16,7 +16,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-row *ngIf="showOptions">
+        <ion-row class="options" [ngClass]="{ 'expanded': showOptions, 'collapsed': !showOptions }">
             <ion-col size="12" size-md="4">
                 <ion-item>
                     <ion-label position="floating">Category</ion-label>
