@@ -11,7 +11,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab *ngIf="(userRole$ | async) === UserRole.Admin" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button routerLink="/celebrities/add">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>

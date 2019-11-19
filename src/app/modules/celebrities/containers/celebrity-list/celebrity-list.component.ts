@@ -5,6 +5,8 @@ import { takeUntil, skip, map } from 'rxjs/operators';
 
 import { Category } from './../../../../models';
 import { CategoriesService } from './../../../../services';
+import { AuthService } from './../../../auth/services';
+import { UserRole } from './../../../auth/enums';
 import { CelebrityListFilter, Celebrity } from './../../models';
 import { CelebritiesService } from './../../services';
 
@@ -18,6 +20,9 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     count$: Observable<number>;
     getCelebritiesLoading$: Observable<boolean>;
     categories$: Observable<Category[]>;
+    userRole$: Observable<UserRole>;
+
+    UserRole = UserRole;
 
     firstLoaded = false;
 
@@ -30,7 +35,8 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
 
     constructor(
         private _celebritiesService: CelebritiesService,
-        private _categoriesService: CategoriesService
+        private _categoriesService: CategoriesService,
+        private _authService: AuthService
     ) { }
 
     get loading$(): Observable<boolean> {
@@ -45,6 +51,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
         this.count$ = this._celebritiesService.count$;
         this.getCelebritiesLoading$ = this._celebritiesService.getCelebritiesLoading$;
         this.categories$ = this._categoriesService.categories$;
+        this.userRole$ = this._authService.userRole$;
 
         this._celebritiesService
             .celebrities$
