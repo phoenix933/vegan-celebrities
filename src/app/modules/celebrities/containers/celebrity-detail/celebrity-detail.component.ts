@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import countries from './../../../../../assets/data/countries.json';
 import { UserRole } from './../../../auth/enums';
 import { AuthService } from './../../../auth/services';
 import { CelebritiesService } from './../../services';
@@ -18,6 +19,7 @@ export class CelebrityDetailComponent implements OnInit {
     userRole$: Observable<UserRole>;
 
     UserRole = UserRole;
+    private readonly _countries: { name: string; code: string }[] = countries;
 
     constructor(
         private _route: ActivatedRoute,
@@ -35,5 +37,9 @@ export class CelebrityDetailComponent implements OnInit {
                 const slug = paramMap.get('celebritySlug');
                 this._celebritiesService.getCelebrity(slug);
             });
+    }
+
+    getCountryName(countryCode: string): string {
+        return this._countries.find(c => c.code === countryCode).name;
     }
 }

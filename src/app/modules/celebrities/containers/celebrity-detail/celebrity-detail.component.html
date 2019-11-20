@@ -63,16 +63,18 @@
 
                 <div>
 
-                    <div *ngIf="celebrity.birthdate || celebrity.country">
+                    <div>
+                        <strong>Country: </strong>
+                        <span>
+                            <a [href]="'https://www.google.com/maps/place/' + getCountryName(celebrity.country)" target="_blank" >{{ getCountryName(celebrity.country) }}
+                            </a>
+                        </span>
+                    </div>
+
+                    <div *ngIf="celebrity.birthdate">
                         <strong>Born: </strong>
                         <span>
-                            <span *ngIf="celebrity.birthdate">{{ celebrity.birthdate | date: 'dd MMM yyyy' }}</span>
-                            <span *ngIf="celebrity.birthdate && celebrity.country">,</span>
-                            <span *ngIf="celebrity.country">
-                                <a [href]="'https://www.google.com/maps/place/' + celebrity.country" target="_blank" >
-                                    {{ celebrity.country }}
-                                </a>
-                            </span>
+                            {{ celebrity.birthdate | date: 'dd MMMM yyyy' }}
                         </span>
                     </div>
 
