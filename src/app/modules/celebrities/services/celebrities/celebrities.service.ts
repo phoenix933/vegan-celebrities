@@ -57,6 +57,10 @@ export class CelebritiesService {
         return this._store.pipe(select(fromCelebrities.getGetCelebritiesLoading));
     }
 
+    get getCelebrityLoading$(): Observable<boolean> {
+        return this._store.pipe(select(fromCelebrities.getGetCelebrityLoading));
+    }
+
     get createCelebrityLoading$(): Observable<boolean> {
         return this._store.pipe(select(fromCelebrities.getCreateCelebrityLoading));
     }

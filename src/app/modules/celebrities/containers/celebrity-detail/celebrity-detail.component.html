@@ -1,41 +1,40 @@
-<ng-container *ngIf="celebrity$ | async as celebrity">
-    <ion-header>
-        <ion-toolbar>
-            <ion-title>
-                {{ celebrity.name }}
-            </ion-title>
+<ion-header>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+    <ion-toolbar>
+        <ion-title>
+            {{ loading ? 'Loading..' : (celebrity?.name || 'Celebrity') }}
+        </ion-title>
 
-            <ion-buttons slot="start">
-                <ion-back-button defaultHref="/celebrities">
-                </ion-back-button>
-            </ion-buttons>
-        </ion-toolbar>
-    </ion-header>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/celebrities">
+            </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
-    <ion-content class="ion-padding">
-        <ion-fab *ngIf="(userRole$ | async) === UserRole.Admin" vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button [routerLink]="'/celebrities/edit/' + celebrity.slug">
-                <ion-icon name="create"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
+<ion-content class="ion-padding">
+    <ion-fab *ngIf="celebrity && (userRole$ | async) === UserRole.Admin" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="'/celebrities/edit/' + celebrity?.slug">
+            <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
-        <ion-grid>
+    <ion-grid>
 
+        <ng-container *ngIf="loading; else loaded">
             <div class="celebrity">
 
                 <div class="celebrity__header">
                     <ion-avatar class="celebrity__image">
-                        <img [src]="celebrity.imageUrl" />
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
                     </ion-avatar>
 
                     <div>
                         <div class="celebrity__name">
-                            {{ celebrity.name }}
-
-                            <ion-icon name="checkmark-circle" color="secondary" size="small"></ion-icon>
+                            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
                         </div>
                         <div class="celebrity__occupation">
-                            {{ celebrity.category.name }} > {{ celebrity.occupation.name }}
+                            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
                         </div>
                     </div>
                 </div>
@@ -43,101 +42,155 @@
                 <ion-item-divider>
                 </ion-item-divider>
 
-                <!-- <div *ngIf="celebrity.social" class="celebrity__social">
-                    <ng-container *ngFor="let social of celebrity.social | keyvalue">
-                        <a
-                            *ngIf="social.value"
-                            [href]="social.value"
-                            target="_blank"
-                            class="social-button">
-                            <ion-icon [class]="social.key" [name]="'logo-' + social.key">
-                            </ion-icon>
-                        </a>
-                    </ng-container>
-                </div> -->
-
-                <!-- Might move these to a nested `social` object (see above) -->
-                <div class="celebrity__social">
-                    <a
-                        *ngIf="celebrity.facebookUrl"
-                        [href]="celebrity.facebookUrl"
-                        target="_blank"
-                        class="social-button">
-                        <ion-icon class="facebook" name="logo-facebook">
-                        </ion-icon>
-                    </a>
-
-                    <a
-                        *ngIf="celebrity.instagramUrl"
-                        [href]="celebrity.instagramUrl"
-                        target="_blank"
-                        class="social-button">
-                        <ion-icon class="instagram" name="logo-instagram">
-                        </ion-icon>
-                    </a>
-
-                    <a
-                        *ngIf="celebrity.twitterUrl"
-                        [href]="celebrity.twitterUrl"
-                        target="_blank"
-                        class="social-button">
-                        <ion-icon class="twitter" name="logo-twitter">
-                        </ion-icon>
-                    </a>
-
-                    <a
-                        *ngIf="celebrity.youtubeUrl"
-                        [href]="celebrity.youtubeUrl"
-                        target="_blank"
-                        class="social-button">
-                        <ion-icon class="youtube" name="logo-youtube">
-                        </ion-icon>
-                    </a>
-                </div>
-
                 <p>
-                    {{ celebrity.about }}
-                    <a *ngIf="celebrity.wikiUrl" [href]="celebrity.wikiUrl" target="_blank">Wikipedia</a>
+                    <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
                 </p>
 
                 <div>
-
-                    <div>
-                        <strong>Country: </strong>
-                        <span>
-                            <a [href]="'https://www.google.com/maps/place/' + getCountryName(celebrity.country)" target="_blank" >{{ getCountryName(celebrity.country) }}
-                            </a>
-                        </span>
-                    </div>
-
-                    <div *ngIf="celebrity.birthdate">
-                        <strong>Born: </strong>
-                        <span>
-                            {{ celebrity.birthdate | date: 'dd MMMM yyyy' }}
-                        </span>
-                    </div>
-
-                    <div *ngIf="celebrity.height">
-                        <strong>Height:</strong>
-                        <span>
-                            {{ celebrity.height | height }}
-                        </span>
-                    </div>
-
-                    <div *ngIf="celebrity.partner">
-                        <strong>Partner: </strong>
-                        <span>
-                            <a target="_blank" [href]="'https://www.google.com/search?q=' + celebrity.partner">
-                                {{ celebrity.partner }}
-                            </a>
-                        </span>
-                    </div>
-
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
                 </div>
 
             </div>
+        </ng-container>
 
-        </ion-grid>
+        <ng-template #loaded>
 
-    </ion-content>
-</ng-container>
+            <ng-container *ngIf="celebrity; else noCelebrity">
+
+                <div class="celebrity">
+
+                    <div class="celebrity__header">
+                        <ion-avatar class="celebrity__image">
+                            <img [src]="celebrity.imageUrl" />
+                        </ion-avatar>
+
+                        <div>
+                            <div class="celebrity__name">
+                                {{ celebrity.name }}
+
+                                <ion-icon name="checkmark-circle" color="secondary" size="small"></ion-icon>
+                            </div>
+                            <div class="celebrity__occupation">
+                                {{ celebrity.category.name }} > {{ celebrity.occupation.name }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <ion-item-divider>
+                    </ion-item-divider>
+
+                    <!-- <div *ngIf="celebrity.social" class="celebrity__social">
+                        <ng-container *ngFor="let social of celebrity.social | keyvalue">
+                            <a
+                                *ngIf="social.value"
+                                [href]="social.value"
+                                target="_blank"
+                                class="social-button">
+                                <ion-icon [class]="social.key" [name]="'logo-' + social.key">
+                                </ion-icon>
+                            </a>
+                        </ng-container>
+                    </div> -->
+
+                    <!-- Might move these to a nested `social` object (see) -->
+                    <div class="celebrity__social">
+                        <a
+                            *ngIf="celebrity.facebookUrl"
+                            [href]="celebrity.facebookUrl"
+                            target="_blank"
+                            class="social-button">
+                            <ion-icon class="facebook" name="logo-facebook">
+                            </ion-icon>
+                        </a>
+
+                        <a
+                            *ngIf="celebrity.instagramUrl"
+                            [href]="celebrity.instagramUrl"
+                            target="_blank"
+                            class="social-button">
+                            <ion-icon class="instagram" name="logo-instagram">
+                            </ion-icon>
+                        </a>
+
+                        <a
+                            *ngIf="celebrity.twitterUrl"
+                            [href]="celebrity.twitterUrl"
+                            target="_blank"
+                            class="social-button">
+                            <ion-icon class="twitter" name="logo-twitter">
+                            </ion-icon>
+                        </a>
+
+                        <a
+                            *ngIf="celebrity.youtubeUrl"
+                            [href]="celebrity.youtubeUrl"
+                            target="_blank"
+                            class="social-button">
+                            <ion-icon class="youtube" name="logo-youtube">
+                            </ion-icon>
+                        </a>
+                    </div>
+
+                    <p>
+                        {{ celebrity.about }}
+                        <a *ngIf="celebrity.wikiUrl" [href]="celebrity.wikiUrl" target="_blank">Wikipedia</a>
+                    </p>
+
+                    <div>
+
+                        <div>
+                            <strong>Country: </strong>
+                            <span>
+                                <a [href]="'https://www.google.com/maps/place/' + getCountryName(celebrity.country)" target="_blank" >{{ getCountryName(celebrity.country) }}
+                                </a>
+                            </span>
+                        </div>
+
+                        <div *ngIf="celebrity.birthdate">
+                            <strong>Born: </strong>
+                            <span>
+                                {{ celebrity.birthdate | date: 'dd MMMM yyyy' }}
+                            </span>
+                        </div>
+
+                        <div *ngIf="celebrity.height">
+                            <strong>Height:</strong>
+                            <span>
+                                {{ celebrity.height | height }}
+                            </span>
+                        </div>
+
+                        <div *ngIf="celebrity.partner">
+                            <strong>Partner: </strong>
+                            <span>
+                                <a target="_blank" [href]="'https://www.google.com/search?q=' + celebrity.partner">
+                                    {{ celebrity.partner }}
+                                </a>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </ng-container>
+
+        </ng-template>
+
+        <ng-template #noCelebrity>
+
+            <ion-row>
+                <ion-col class="no-results ion-margin ion-padding ion-text-center">
+                    <ion-icon name="search"></ion-icon>
+
+                    <h1>Celebrity not found</h1>
+                    <p>We could not find a celebrity with that name. Are you making up names?</p>
+                </ion-col>
+            </ion-row>
+
+        </ng-template>
+
+    </ion-grid>
+</ion-content>
+

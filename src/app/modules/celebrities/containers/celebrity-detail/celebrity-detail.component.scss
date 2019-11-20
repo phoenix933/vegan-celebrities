@@ -10,14 +10,12 @@
 
     &__occupation {
         text-transform: capitalize;
-        font-family: Roboto, 'Helvetica Neue', sans-serif;
         font-weight: 500;
         font-size: 14px;
         color: #737373
     }
 
     &__name {
-        font-family: Roboto, 'Helvetica Neue', sans-serif;
         font-weight: 500;
         font-size: 20px;
         line-height: 24px;
@@ -25,6 +23,8 @@
 
         display: flex;
         align-items: center;
+
+        min-width: 5em;
 
         ion-icon {
             margin-left: 6px;
@@ -59,6 +59,12 @@
                 color: $instagramColor;
             }
         }
+    }
+}
+
+.no-results {
+    ion-icon {
+        font-size: 5rem;
     }
 }
 
