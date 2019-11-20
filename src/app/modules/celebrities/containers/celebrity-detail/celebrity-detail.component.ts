@@ -45,6 +45,7 @@ export class CelebrityDetailComponent implements OnInit, OnDestroy {
             .subscribe((loading: boolean) => this.loading = loading);
 
         this._route.paramMap
+            .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(paramMap => {
                 const slug = paramMap.get('celebritySlug');
                 this._celebritiesService.getCelebrity(slug);

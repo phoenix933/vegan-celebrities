@@ -1,29 +1,26 @@
-<ng-container *ngIf="celebrity$ | async as celebrity">
+<ion-header>
+    <ion-progress-bar *ngIf="getCelebrityLoading$ | async" type="indeterminate"></ion-progress-bar>
+    <ion-toolbar>
+        <ion-title>
+            Edit {{ celebrity?.name || 'celebrity' }}
+        </ion-title>
 
-    <ion-header>
-        <ion-toolbar>
-            <ion-title>
-                Edit {{ celebrity.name }}
-            </ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/celebrities/list">
+            </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
-            <ion-buttons slot="start">
-                <ion-back-button defaultHref="/celebrities/list">
-                </ion-back-button>
-            </ion-buttons>
-        </ion-toolbar>
-    </ion-header>
+<ion-content>
 
-    <ion-content>
+    <app-celebrity-form
+        [celebrity]="celebrity"
+        [loading]="updateCelebrityLoading$ | async"
+        [occupations]="occupations$ | async"
+        (submitted)="updateCelebrity($event)">
+    </app-celebrity-form>
 
-        <app-celebrity-form
-            [celebrity]="celebrity"
-            [loading]="updateCelebrityLoading$ | async"
-            [occupations]="occupations$ | async"
-            (submitted)="updateCelebrity($event)">
-        </app-celebrity-form>
-
-    </ion-content>
-
-</ng-container>
+</ion-content>
 
 

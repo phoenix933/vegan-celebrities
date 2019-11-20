@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Occupation } from './../../../../models';
 import { OccupationsService } from './../../../../services';
@@ -14,12 +15,15 @@ import { Celebrity } from './../../models';
     styleUrls: ['./edit-celebrity.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditCelebrityComponent implements OnInit {
-    celebrity$: Observable<Celebrity>;
+export class EditCelebrityComponent implements OnInit, OnDestroy {
     updateCelebrityLoading$: Observable<boolean>;
+    getCelebrityLoading$: Observable<boolean>;
     occupations$: Observable<Occupation[]>;
 
+    celebrity: Celebrity;
+
     private _slug: string;
+    private _unsubscribeAll$ = new Subject<void>();
 
     constructor(
         private _route: ActivatedRoute,
@@ -28,15 +32,25 @@ export class EditCelebrityComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.celebrity$ = this._celebritiesService.selectedCelebrity$;
         this.updateCelebrityLoading$ = this._celebritiesService.updateCelebrityLoading$;
+        this.getCelebrityLoading$ = this._celebritiesService.getCelebrityLoading$;
         this.occupations$ = this._occupationsService.occupations$;
 
+        this._celebritiesService.selectedCelebrity$
+            .pipe(takeUntil(this._unsubscribeAll$))
+            .subscribe((celebrity: Celebrity) => this.celebrity = celebrity);
+
         this._route.paramMap
+            .pipe(takeUntil(this._unsubscribeAll$))
             .subscribe(paramMap => {
                 this._slug = paramMap.get('celebritySlug');
                 this._celebritiesService.getCelebrity(this._slug);
             });
+    }
+
+    ngOnDestroy(): void {
+        this._unsubscribeAll$.next();
+        this._unsubscribeAll$.complete();
     }
 
     updateCelebrity(celebrity: Celebrity): void {
