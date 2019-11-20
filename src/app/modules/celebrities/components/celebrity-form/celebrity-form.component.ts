@@ -29,7 +29,7 @@ export class CelebrityFormComponent implements OnChanges, OnInit {
         country: ['', []],
         occupationId: ['', [Validators.required]],
         birthdate: ['', []],
-        height: ['', []],
+        height: [null, []],
         partner: ['', []],
         imageUrl: ['', [Validators.required]],
         wikiUrl: ['', []],
