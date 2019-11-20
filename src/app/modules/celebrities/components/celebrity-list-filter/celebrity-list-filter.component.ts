@@ -1,8 +1,8 @@
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 
-import { Subject, combineLatest, merge } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, combineLatest } from 'rxjs';
+import { takeUntil, startWith, skip } from 'rxjs/operators';
 
 import countries from './../../../../../assets/data/countries.json';
 import { Sex } from './../../../../enums';
@@ -40,13 +40,18 @@ export class CelebrityListFilterComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        merge(
-            this.filterForm.get('category').valueChanges,
-            this.filterForm.get('sex').valueChanges,
-            this.filterForm.get('country').valueChanges
-        )
-            .pipe(takeUntil(this._unsubscribeAll$))
-            .subscribe(() => this.changed.emit(this.filterForm.value));
+        combineLatest([
+            this.filterForm.get('category').valueChanges.pipe(startWith('')),
+            this.filterForm.get('sex').valueChanges.pipe(startWith('')),
+            this.filterForm.get('country').valueChanges.pipe(startWith(''))
+        ])
+            .pipe(
+                skip(1),
+                takeUntil(this._unsubscribeAll$)
+            )
+            .subscribe(([category, sex, country]) => {
+                this.changed.emit({ ...this.filterForm.value, category, sex, country });
+            });
     }
 
     ngOnDestroy() {
