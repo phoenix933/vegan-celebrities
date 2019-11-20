@@ -25,7 +25,10 @@ export class AppComponent {
 
         this._authService.getUser();
         this._categoriesService.getCategories();
-        this._occupationsService.getOccupations();
+
+        setTimeout(() => {
+            this._occupationsService.getOccupations();
+        }, 500);
     }
 
     initializeApp() {
