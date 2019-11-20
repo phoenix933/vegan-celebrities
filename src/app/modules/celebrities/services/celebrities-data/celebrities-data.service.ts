@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, from } from 'rxjs';
-import { map, delay } from 'rxjs/operators';
 
 import { environment } from './../../../../../environments/environment';
 import { Celebrity, CelebrityListFilter } from '../../models';
@@ -21,10 +20,7 @@ export class CelebritiesDataService {
         const params = Object.keys(listFilter)
             .reduce((res, key) => listFilter[key] ? { ...res, [key]: `${listFilter[key]}` } : res, {});
 
-        return this._http.get<{ celebrities: Celebrity[], count: number }>(this._celebritiesUrl, { params })
-            .pipe(
-                delay(3000)
-            )
+        return this._http.get<{ celebrities: Celebrity[], count: number }>(this._celebritiesUrl, { params });
     }
 
     getCelebrity(slug: string): Observable<Celebrity> {
