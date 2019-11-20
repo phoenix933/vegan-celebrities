@@ -34,7 +34,7 @@
         </ion-row>
 
         <ng-template #loaded>
-            <div *ngIf="celebrities && celebrities.length">
+            <div *ngIf="celebrities && celebrities.length; else noCelebrities">
                 <ion-row>
                     <ion-virtual-scroll [items]="celebrities" approxItemHeight="240px">
                         <ion-col size="12" *virtualItem="let celebrity;">
@@ -59,6 +59,17 @@
                     </ion-infinite-scroll-content>
                 </ion-infinite-scroll>
             </div>
+        </ng-template>
+
+        <ng-template #noCelebrities>
+            <ion-row>
+                <ion-col class="no-results ion-margin ion-padding ion-text-center">
+                    <ion-icon name="search"></ion-icon>
+
+                    <h1>No results</h1>
+                    <p>Try different keywords or remove search filters</p>
+                </ion-col>
+            </ion-row>
         </ng-template>
 
     </ion-grid>
