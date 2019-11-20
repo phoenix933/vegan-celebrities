@@ -1,6 +1,6 @@
 <ion-card  class="celebrity-card">
     <div [routerLink]="'/celebrities/view/' + celebrity.slug">
-        <ion-img class="celebrity-card__image" [src]="'https://vignette.wikia.nocookie.net/dcmovies/images/5/5c/Joaquin_Phoenix.jpg/revision/latest?cb=20180719151711'">
+        <ion-img class="celebrity-card__image" [src]="celebrity.imageUrl">
         </ion-img>
 
         <div class="celebrity-card__content">
