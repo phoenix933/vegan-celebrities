@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import { Celebrity } from './../../models';
     selector: 'app-edit-celebrity',
     templateUrl: './edit-celebrity.component.html',
     styleUrls: ['./edit-celebrity.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditCelebrityComponent implements OnInit {
     celebrity$: Observable<Celebrity>;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { takeUntil, skip, map } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { CelebritiesService } from './../../services';
     selector: 'app-celebrity-list',
     templateUrl: './celebrity-list.component.html',
     styleUrls: ['./celebrity-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CelebrityListComponent implements OnInit, OnDestroy {
     celebrities: Celebrity[];

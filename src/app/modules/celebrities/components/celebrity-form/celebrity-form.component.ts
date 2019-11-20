@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import countries from './../../../../../assets/data/countries.json';
@@ -10,6 +10,7 @@ import { Celebrity } from './../../models';
     selector: 'app-celebrity-form',
     templateUrl: './celebrity-form.component.html',
     styleUrls: ['./celebrity-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CelebrityFormComponent implements OnChanges, OnInit {
     @Input() celebrity: Celebrity;

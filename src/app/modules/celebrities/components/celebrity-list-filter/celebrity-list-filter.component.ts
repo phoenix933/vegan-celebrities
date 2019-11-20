@@ -1,5 +1,5 @@
 import { FormBuilder } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Subject, combineLatest } from 'rxjs';
 import { takeUntil, startWith, skip } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { CelebrityListFilter } from './../../models';
     selector: 'app-celebrity-list-filter',
     templateUrl: './celebrity-list-filter.component.html',
     styleUrls: ['./celebrity-list-filter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CelebrityListFilterComponent implements OnInit, OnDestroy {
     @Input()

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { Celebrity } from './../../models';
     selector: 'app-create-celebrity',
     templateUrl: './create-celebrity.component.html',
     styleUrls: ['./create-celebrity.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateCelebrityComponent implements OnInit {
     createCelebrityLoading$: Observable<boolean>;
