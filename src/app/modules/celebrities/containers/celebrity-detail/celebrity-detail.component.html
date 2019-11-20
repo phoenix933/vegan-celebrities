@@ -43,7 +43,7 @@
                 <ion-item-divider>
                 </ion-item-divider>
 
-                <div *ngIf="celebrity.social" class="celebrity__social">
+                <!-- <div *ngIf="celebrity.social" class="celebrity__social">
                     <ng-container *ngFor="let social of celebrity.social | keyvalue">
                         <a
                             *ngIf="social.value"
@@ -54,6 +54,45 @@
                             </ion-icon>
                         </a>
                     </ng-container>
+                </div> -->
+
+                <!-- Might move these to a nested `social` object (see above) -->
+                <div class="celebrity__social">
+                    <a
+                        *ngIf="celebrity.facebookUrl"
+                        [href]="celebrity.facebookUrl"
+                        target="_blank"
+                        class="social-button">
+                        <ion-icon class="facebook" name="logo-facebook">
+                        </ion-icon>
+                    </a>
+
+                    <a
+                        *ngIf="celebrity.instagramUrl"
+                        [href]="celebrity.instagramUrl"
+                        target="_blank"
+                        class="social-button">
+                        <ion-icon class="instagram" name="logo-instagram">
+                        </ion-icon>
+                    </a>
+
+                    <a
+                        *ngIf="celebrity.twitterUrl"
+                        [href]="celebrity.twitterUrl"
+                        target="_blank"
+                        class="social-button">
+                        <ion-icon class="twitter" name="logo-twitter">
+                        </ion-icon>
+                    </a>
+
+                    <a
+                        *ngIf="celebrity.youtubeUrl"
+                        [href]="celebrity.youtubeUrl"
+                        target="_blank"
+                        class="social-button">
+                        <ion-icon class="youtube" name="logo-youtube">
+                        </ion-icon>
+                    </a>
                 </div>
 
                 <p>
