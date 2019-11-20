@@ -58,6 +58,7 @@ export function reducer(state = initialState, action: fromActions.CelebritiesAct
         case CelebritiesActionTypes.GetCelebrity: {
             return {
                 ...state,
+                selectedCelebrity: null,
                 getCelebrityLoading: true
             };
         }
