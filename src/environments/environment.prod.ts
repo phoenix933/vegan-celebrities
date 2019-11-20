@@ -3,5 +3,5 @@ import { firebaseConfig } from './../config';
 export const environment = {
     production: true,
     firebase: firebaseConfig,
-    apiUrl: 'http://localhost:3000'
+    apiUrl: 'https://vegan-celebrities-api.herokuapp.com'
 };
