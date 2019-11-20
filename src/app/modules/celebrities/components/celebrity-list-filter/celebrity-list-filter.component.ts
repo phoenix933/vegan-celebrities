@@ -39,6 +39,11 @@ export class CelebrityListFilterComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder
     ) { }
 
+    get hasOptions(): boolean {
+        const { category, sex, country } = this.filterForm.value;
+        return !!(category || sex || country);
+    }
+
     ngOnInit() {
         combineLatest([
             this.filterForm.get('category').valueChanges.pipe(startWith('')),
