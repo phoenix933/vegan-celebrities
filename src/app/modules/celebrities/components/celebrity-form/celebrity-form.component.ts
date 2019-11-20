@@ -32,12 +32,10 @@ export class CelebrityFormComponent implements OnChanges, OnInit {
         partner: ['', []],
         imageUrl: ['', [Validators.required]],
         wikiUrl: ['', []],
-        social: this._formBuilder.group({
-            facebook: ['', []],
-            instagram: ['', []],
-            twitter: ['', []],
-            youtube: ['', []],
-        })
+        facebookUrl: ['', []],
+        instagramUrl: ['', []],
+        twitterUrl: ['', []],
+        youtubeUrl: ['', []]
     });
 
     constructor(

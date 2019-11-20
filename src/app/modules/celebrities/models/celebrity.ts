@@ -13,10 +13,8 @@ export interface Celebrity {
     partner?: string;
     imageUrl: string;
     wikiUrl?: string;
-    social?: {
-        facebook?: string,
-        instagram?: string,
-        twitter?: string,
-        youtube?: string,
-    };
+    facebookUrl?: string;
+    instagramUrl?: string;
+    twitterUrl?: string;
+    youtubeUrl?: string;
 }
