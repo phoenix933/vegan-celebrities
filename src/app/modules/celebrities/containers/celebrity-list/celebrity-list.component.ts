@@ -25,9 +25,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
 
     UserRole = UserRole;
 
-    firstLoaded = false;
-
-    private _infiniteScrollEvent: any;
+    private _ionScrollEvent: any;
 
     private readonly _defaultFilter: CelebrityListFilter = { limit: 12, offset: 0 };
     private _filter$ = new BehaviorSubject<CelebrityListFilter>(this._defaultFilter);
@@ -60,10 +58,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
                 skip(1),
                 takeUntil(this._unsubscribeAll$)
             )
-            .subscribe((celebrities: Celebrity[]) => {
-                this.firstLoaded = true;
-                this.celebrities = celebrities;
-            });
+            .subscribe((celebrities: Celebrity[]) => this.celebrities = celebrities);
 
         this._filter$
             .asObservable()
@@ -74,8 +69,8 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
             .getCelebritiesSuccess$
             .pipe(takeUntil(this._unsubscribeAll$))
             .subscribe(() => {
-                if (this._infiniteScrollEvent) {
-                    this._infiniteScrollEvent.target.complete();
+                if (this._ionScrollEvent) {
+                    this._ionScrollEvent.target.complete();
                 }
             });
     }
@@ -86,7 +81,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     }
 
     refresh(event: any): void {
-        this._infiniteScrollEvent = event;
+        this._ionScrollEvent = event;
 
         const currentValue = this._filter$.getValue();
         this._filter$.next({ ...currentValue, offset: 0 });
@@ -97,7 +92,7 @@ export class CelebrityListComponent implements OnInit, OnDestroy {
     }
 
     onInfiniteScroll(event: any): void {
-        this._infiniteScrollEvent = event;
+        this._ionScrollEvent = event;
 
         const offset = this.celebrities.length;
         const currentValue = this._filter$.getValue();

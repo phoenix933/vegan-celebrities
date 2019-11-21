@@ -36,7 +36,7 @@
         <ng-template #loaded>
             <div *ngIf="celebrities && celebrities.length; else noCelebrities">
                 <ion-row>
-                    <ion-virtual-scroll [items]="celebrities" approxItemHeight="240px">
+                    <!-- <ion-virtual-scroll [items]="celebrities" approxItemHeight="240px">
                         <ion-col size="12" *virtualItem="let celebrity;">
 
                             <app-celebrity-item
@@ -44,7 +44,16 @@
                             </app-celebrity-item>
 
                         </ion-col>
-                    </ion-virtual-scroll>
+                    </ion-virtual-scroll> -->
+
+                    <!-- Temporarily use ngFor until virtual scroll bug is fixed -->
+                    <ion-col size="12" *ngFor="let celebrity of celebrities">
+
+                        <app-celebrity-item
+                            [celebrity]="celebrity">
+                        </app-celebrity-item>
+
+                    </ion-col>
                 </ion-row>
 
                 <ion-infinite-scroll
